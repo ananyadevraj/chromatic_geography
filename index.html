@@ -251,8 +251,7 @@
 
     <section class="intro">
         <div class="container-narrow intro-text">
-            <p>Using images as data.</p>
-            <p>I built a pipeline to extract dominant colors from urban photography and aggregate them into city-level palettes.</p>
+            <p>Using images as data, I built a pipeline to extract dominant colors from urban photography and aggregate them into city-level palettes of 6 colors each.</p>
             <p class="muted">The dataset: <span class="highlight-number">1,800 images</span> across <span class="highlight-number">12 cities</span>.</p>
         </div>
         <div class="divider"></div>
@@ -261,7 +260,7 @@
     <section class="method-intro">
         <div class="container-narrow">
             <p class="method-intro-question">How does this work?</p>
-            <p class="method-intro-answer">Using a single image from Tokyo, let me walk through exactly what the algorithm does.</p>
+            <p class="method-intro-answer">Using a single image from Tokyo, let me walk you through exactly what the algorithm does.</p>
         </div>
     </section>
 
@@ -359,27 +358,27 @@
                         <p><strong>Therefore, similar colors cluster together.</strong></p>
                     </div>
                 </div>
-                <div class="scroll-step" data-step="box-1"><div class="step-content"><h3 class="step-heading">Start with one big box - all pixels in the 3D color space.</h3>
-                    <p>The algorithm is called <strong>Median Cut</strong>, used by the ColorThief library. It starts by putting all pixels into a single container.</p>
+                <div class="scroll-step" data-step="box-1"><div class="step-content"><h3 class="step-heading">The Algorithm: Median Cut</h3>
+                    <p><strong>Median Cut</strong>, used by the ColorThief library, starts by putting all pixels into a single, merged container.</p>
                 </div>
             </div>
                 <div class="scroll-step" data-step="box-2">
                     <div class="step-content">
                         <h3 class="step-heading">Cut the box in half</h3>
-                        <p>Find which color channel (R, G, or B) has the <strong>biggest range</strong>, as in, the axis (R,G, or B) along which there is the largest (minimum-maximum) value. Cut the box in half along that axis at the median.</p>
+                        <p>Find which color channel (R, G, or B) has the <strong>biggest range</strong>. This is the axis (R,G, or B) along which there is the largest (minimum-maximum) value. Cut the box in half along that axis at the median.</p>
                     </div>
                 </div>
                 <div class="scroll-step" data-step="box-6">
                     <div class="step-content">
                         <h3 class="step-heading">Continue the process.</h3>
-                        <p>From the resulting two boxes, take the box with the most variation and cut it again, increasing the number of boxes by 1 each time. The algorithm repeats until we have 6 boxes.</p>
-                        <p>The average color of each box becomes one of the six final palette colors.</p>
+                        <p>From the resulting two boxes, take the box with the most variation and cut it along the median again, increasing the number of boxes by 1 each time.</p>
+                        <p>The algorithm repeats until we have 6 boxes, and the average color of each box becomes one of the six final palette colors.</p>
                     </div>
                 </div>
                 <div class="scroll-step" data-step="palette">
                     <div class="step-content">
-                        <h3 class="step-heading">The result: 6 colors</h3>
-                        <p>From 360,000 pixels down to 6 representative colors of a single image.</p>
+                        <h3 class="step-heading">The Result</h3>
+                        <p>From 360,000 pixels down to 6 representative colors of a single image. This is a single image's color palet</p>
                         <p class="muted">Post-processing filters out very dark and gray colors from sidewalks, roads, and concrete to focus on more vibrant essence.</p>
                     </div>
                 </div>
@@ -389,7 +388,7 @@
 
     <section class="image-to-city">
         <div class="city-intro container-narrow">
-            <p class="display" style="font-size:clamp(1.5rem,4vw,2.2rem);text-align:center;margin-bottom:var(--space-lg);">One image gives us 6 colors.<br>How do we aggregate this for a whole city?</p>
+            <p class="display" style="font-size:clamp(1.5rem,4vw,2.2rem);text-align:center;margin-bottom:var(--space-lg);">How do we aggregate this for a whole city?</p>
             <p class="muted" style="text-align:center;font-size:1.1rem;">I'll use Tokyo as an example. I extracted colors from <strong style="color:var(--color-text);">150 photographs</strong>, which included temples, streets, neon signs, markets, and trains.</p>
         </div>
         <div class="palette-merge">
@@ -418,7 +417,7 @@
                     <span style="background:#c79568" data-hex="#c79568"></span>
                 </div>
                 <h3 class="city-palette-name">Tokyo</h3>
-                <p class="city-palette-description muted">Vermillion reds, burnt umber, warm ochre representing temples, lanterns, wooden architecture</p>
+                <p class="city-palette-description muted">A palette representing temples, lanterns, night lights, and wooden architecture</p>
             </div>
         </div>
         <div class="container-narrow" style="margin-top:var(--space-xl);">
@@ -439,7 +438,7 @@
     <section class="all-cities" id="results">
         <div class="results-header container-narrow">
             <h2 class="display" style="font-size:clamp(2rem,5vw,3.5rem);text-align:center;margin-bottom:var(--space-md);">12 Cities</h2>
-            <p class="muted" style="text-align:center;font-size:1.1rem;margin-bottom:var(--space-xl);"> After analyzing 1,800 photographs (150 per city), here's what the algorithm found.</p>
+            <p class="muted" style="text-align:center;font-size:1.1rem;margin-bottom:var(--space-xl);"> After analyzing 1,800 photographs across 12 cities, here's what the algorithm found.</p>
         </div>
         <div class="cities-grid container">
             <div class="city-card"><div class="city-card-palette"><span style="background:#6d1b04" data-hex="#6d1b04"></span><span style="background:#f7c36e" data-hex="#f7c36e"></span><span style="background:#843c09" data-hex="#843c09"></span><span style="background:#a7540c" data-hex="#a7540c"></span><span style="background:#da8d35" data-hex="#da8d35"></span><span style="background:#ccb464" data-hex="#ccb464"></span></div><div class="city-card-info"><h3 class="city-card-name">Bangkok</h3><p class="city-card-country">Thailand</p><p class="city-card-vibe">Temples, busy streets, and night market glow</p></div></div>
