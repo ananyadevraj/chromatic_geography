@@ -1,6 +1,8 @@
 # Chromatic Geography
 
-A visual essay exploring the color palettes of 12 cities around the world, told through scrollytelling.
+A vibrant visual essay exploring the color palettes of 12 cities around the world, told through scrollytelling.
+
+I wanted to challenge myself to a data-visualization focused project. I recently have been reading beautiful data-driven visual essays, which I was determined to learn how to recreate. This project is a combination of my data science skills, and a vision to showcase it from a design standpoint. 
 
 **[Explore the essay →](https://ananyadevraj.github.io/chromatic_geography/)**
 
@@ -54,7 +56,7 @@ python test_palette.py
 index.html          # The visual essay
 tokyo-temple.png    # image used as algorithm explanation example 
 image_scraper.py    # Unsplash API scraper
-color_extraction.py # ColorThief color extraction
+test_palette.py # ColorThief color extraction
 ```
 
 ## Credits
