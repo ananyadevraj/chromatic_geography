@@ -202,6 +202,10 @@
         .comparison-palette-item { flex: 1; text-align: center; }
         .comparison-palette-item .mini-bar { display: flex; height: 40px; border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
         .comparison-palette-item .mini-bar span { flex: 1; }
+        .comparison-palette-item .mini-bar span { flex: 1; position: relative; cursor: pointer; transition: flex 0.3s; }
+        .comparison-palette-item .mini-bar span:hover { flex: 1.5; }
+        .comparison-palette-item .mini-bar span::after { content: attr(data-hex); position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); font-family: var(--font-data); font-size: 0.65rem; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.8); opacity: 0; transition: opacity 0.2s; }
+        .comparison-palette-item .mini-bar span:hover::after { opacity: 1; }
         .comparison-palette-item .city-label { font-family: var(--font-data); font-size: 1rem; color: var(--color-text-subtle); }
         .comparison-vs { font-family: var(--font-display); font-size: 1.1rem; font-style: italic; color: var(--color-text-subtle); }
         
@@ -733,6 +737,53 @@
                         </div>
                     </div>
                 </div>
+             <div class="comparison-section" style="margin-top: var(--space-xl);">
+                <div class="comparison-grid">
+                    <div class="comparison-card" style="grid-column: 1 / -1; background: linear-gradient(135deg, #1a1a1a 0%, #0c0c0c 100%); border: 1px solid #333;">
+                        <h4 style="font-size: 1.6rem; text-align:center;">Bonus: New York City</h4>
+                        <p>I was expecting grey concrete and glass. Instead, the algorithm found something different. Upon analyzing the photos, here's what I think the colors represent:</p>
+                        <div class="comparison-palettes" style="margin: var(--space-lg) 0;">
+                            <div class="comparison-palette-item" style="flex: 1;">
+                                <div class="mini-bar" style="height: 60px; border-radius: 8px;">
+                                    <span style="background:#d29b26" data-hex="#d29b26"></span>
+                                    <span style="background:#b54a3a" data-hex="#b54a3a"></span>
+                                    <span style="background:#4a7c59" data-hex="#4a7c59"></span>
+                                    <span style="background:#674a2c" data-hex="#674a2c"></span>
+                                    <span style="background:#572628" data-hex="#572628"></span>
+                                    <span style="background:#d5bbb1" data-hex="#d5bbb1"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); margin-top: var(--space-md);">
+                            <div style="text-align: center;">
+                                <div style="width: 40px; height: 40px; background: #d29b26; border-radius: 50%; margin: 0 auto var(--space-sm);"></div>
+                                <span class="city-label">Yellow cabs</span>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 40px; height: 40px; background: #b54a3a; border-radius: 50%; margin: 0 auto var(--space-sm);"></div>
+                                <span class="city-label">Red brick & fire escapes</span>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 40px; height: 40px; background: #4a7c59; border-radius: 50%; margin: 0 auto var(--space-sm);"></div>
+                                <span class="city-label">Central Park greenery</span>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 40px; height: 40px; background: #674a2c; border-radius: 50%; margin: 0 auto var(--space-sm);"></div>
+                                <span class="city-label">Brownstones</span>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 40px; height: 40px; background: #572628; border-radius: 50%; margin: 0 auto var(--space-sm);"></div>
+                                <span class="city-label">Old brick</span>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 40px; height: 40px; background: #d5bbb1; border-radius: 50%; margin: 0 auto var(--space-sm);"></div>
+                                <span class="city-label">Limestone & new concrete buildings</span>
+                            </div>
+                        </div>
+                        <p style="margin-top: var(--space-lg); font-style: italic; color: var(--color-text-subtle);">The city's most photographed icons, along with the glass & concrete skyline, are 19th century brick, yellow cabs, and the deep greens of Central Park.</p>
+                    </div>
+                </div>
+            </div>
             
             <div class="stats-section">
                 <div class="stats-grid">
