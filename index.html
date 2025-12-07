@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
         *, *::before, *::after { 
@@ -20,13 +20,13 @@
             --color-bg-alt: #111111;
             --color-text: #f5f5f5;
             --color-text-muted: #d4d0c8;
-            --color-text-subtle: #777;
+            --color-text-subtle: #888;
             --color-accent: #e4a487;
             --color-warm: #d4683a;
             --color-cool: #0096c7;
             --color-neutral: #7a9a6d;
-            --font-display: 'Playfair Display', Georgia, serif;
-            --font-body: 'Cormorant Garamond', Georgia, serif;
+            --font-display: 'Bodoni Moda', Georgia, serif;
+            --font-body: 'Lora', Georgia, serif;
             --font-data: 'DM Sans', -apple-system, sans-serif;
             --space-xs: 4px;
             --space-sm: 8px; 
@@ -58,8 +58,8 @@
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: var(--space-xl); position: relative; background: radial-gradient(ellipse at 50% 0%, rgba(201,70,61,0.08) 0%, transparent 50%), var(--color-bg); }
         .hero-title { font-size: clamp(2.5rem, 10vw, 7rem); margin-bottom: var(--space-md); letter-spacing: 0.12em; text-transform: uppercase; }
         .hero-subtitle { font-size: clamp(1.1rem, 3vw, 1.5rem); color: var(--color-text-muted); font-style: italic; max-width: 500px; margin-bottom: var(--space-2xl); }
-        .scroll-prompt { position: absolute; bottom: var(--space-xl); font-family: var(--font-data); font-size: 0.85rem; color: var(--color-text-subtle); letter-spacing: 0.15em; text-transform: uppercase; animation: float 3s ease-in-out infinite; }
-        .scroll-prompt::after { content: '↓'; display: block; margin-top: var(--space-sm); font-size: 1.3rem; }
+        .scroll-prompt { position: absolute; bottom: var(--space-xl); font-family: var(--font-data); font-size: 1rem; color: var(--color-text-subtle); letter-spacing: 0.15em; text-transform: uppercase; animation: float 3s ease-in-out infinite; }
+        .scroll-prompt::after { content: '↓'; display: block; margin-top: var(--space-sm); font-size: 1.5rem; }
         @keyframes float { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(10px); opacity: 1; } }
         
         /* INTRO */
@@ -69,7 +69,7 @@
         .highlight-number { font-family: var(--font-display); font-weight: 600; color: var(--color-accent); }
         .method-intro { padding: var(--space-2xl) 0; text-align: center; background: var(--color-bg-alt); }
         .method-intro-question { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.8rem); font-style: italic; color: var(--color-text-muted); margin-bottom: var(--space-lg); }
-        .method-intro-answer { font-size: 1.3rem; max-width: 600px; margin: 0 auto; }
+        .method-intro-answer { font-size: 1.5rem; max-width: 600px; margin: 0 auto; }
         .divider { width: 60px; height: 1px; background: var(--color-text-subtle); margin: var(--space-xl) auto; }
         
         /* SCROLLYTELLING */
@@ -80,13 +80,13 @@
         .viz-state { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.5s ease; }
         .viz-state.active { opacity: 1; visibility: visible; }
         .viz-image { width: 100%; max-width: 380px; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-        .viz-caption { margin-top: var(--space-md); font-family: var(--font-data); font-size: 0.9rem; color: var(--color-text-subtle); }
+        .viz-caption { margin-top: var(--space-md); font-family: var(--font-data); font-size: 1rem; color: var(--color-text-subtle); }
         
         .pixel-grid { width: 320px; height: 320px; display: grid; grid-template-columns: repeat(16, 1fr); gap: 2px; padding: 8px; background: #111; border-radius: 8px; }
         .pixel-grid .pixel { border-radius: 2px; }
         .rgb-demo { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 24px; }
         .rgb-sample { width: 140px; height: 100px; border-radius: 8px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
-        .rgb-values { font-family: var(--font-data); font-size: 0.85rem; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
+        .rgb-values { font-family: var(--font-data); font-size: 1rem; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
         .colorspace-container { position: relative; }
         .colorspace-box { width: 300px; height: 300px; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; position: relative; overflow: hidden; }
         .colorspace-box .dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; transform: translate(-50%, -50%); }
@@ -132,7 +132,7 @@
         .merge-arrow { padding: var(--space-lg) 0; color: var(--color-text-subtle); }
         .merge-arrow span { font-size: 2.5rem; display: block; margin-bottom: var(--space-sm); animation: bounce 2s ease-in-out infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
-        .merge-arrow p { font-family: var(--font-data); font-size: 0.9rem; }
+        .merge-arrow p { font-family: var(--font-data); font-size: 1.1rem; }
         .city-palette-result { margin-top: var(--space-lg); }
         .city-palette-bar { display: flex; height: 90px; max-width: 420px; margin: 0 auto var(--space-md); border-radius: 12px; overflow: hidden; box-shadow: 0 12px 50px rgba(0,0,0,0.4); }
         .city-palette-bar span { flex: 1; cursor: pointer; position: relative; transition: flex 0.3s; }
@@ -140,9 +140,9 @@
         .city-palette-bar span::after { content: attr(data-hex); position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); font-family: var(--font-data); font-size: 0.7rem; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.8); opacity: 0; transition: opacity 0.2s; }
         .city-palette-bar span:hover::after { opacity: 1; }
         .city-palette-name { font-family: var(--font-display); font-size: 2rem; margin-bottom: var(--space-xs); }
-        .city-palette-description { font-size: 1.1rem; font-style: italic; }
+        .city-palette-description { font-size: 1.1rem; }
         .process-explanation { background: var(--color-bg-alt); padding: var(--space-lg); border-radius: 12px; border-left: 3px solid var(--color-accent); }
-        .process-explanation h4 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: var(--space-md); }
+        .process-explanation h4 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: var(--space-md); }
         .process-explanation ol { margin-left: var(--space-lg); color: var(--color-text-muted); font-size: 1.1rem; }
         .process-explanation li { margin-bottom: var(--space-sm); }
         
@@ -159,20 +159,20 @@
         .city-card-palette span:hover::after { opacity: 1; }
         .city-card-info { padding: 22px 26px; }
         .city-card-name { font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 4px; }
-        .city-card-country { font-family: var(--font-data); font-size: 0.85rem; color: var(--color-text-subtle); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-sm); }
-        .city-card-vibe { font-size: 1.05rem; color: var(--color-text-muted); line-height: 1.5; }
+        .city-card-country { font-family: var(--font-data); font-size: 1rem; color: var(--color-text-subtle); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-sm); }
+        .city-card-vibe { font-size: 1.1rem; color: var(--color-text-muted); line-height: 1.5; }
         
         /* INSIGHTS */
         .insights { padding: var(--space-2xl) 0; background: var(--color-bg); }
         .insights-header { text-align: center; margin-bottom: var(--space-xl); }
         .insights-header h2 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: var(--space-md); }
-        .insights-header p { font-size: 1.2rem; color: var(--color-text-muted); max-width: 600px; margin: 0 auto; }
+        .insights-header p { font-size: 1.1rem; color: var(--color-text-muted); max-width: 600px; margin: 0 auto; }
         
         /* TEMPERATURE EXPLANATION */
         .temp-explanation { max-width: 800px; margin: 0 auto var(--space-xl); padding: 0 var(--space-lg); }
-        .temp-explanation h4 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: var(--space-md); }
-        .temp-explanation p { font-size: 1.05rem; color: var(--color-text-muted); margin-bottom: var(--space-md); line-height: 1.7; }
-        .formula { font-family: var(--font-data); background: #1a1a1a; padding: 16px 20px; border-radius: 8px; margin: 16px 0; border-left: 3px solid var(--color-accent); font-size: 0.95rem; overflow-x: auto; }
+        .temp-explanation h4 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: var(--space-md); }
+        .temp-explanation p { font-size: 1.1rem; color: var(--color-text-muted); margin-bottom: var(--space-md); line-height: 1.7; }
+        .formula { font-family: var(--font-data); background: #1a1a1a; padding: 16px 20px; border-radius: 8px; margin: 16px 0; border-left: 3px solid var(--color-accent); font-size: 1.1rem; overflow-x: auto; }
         .formula code { color: #e4a487; }
         .formula .comment { color: #666; }
         
@@ -180,30 +180,30 @@
         .spectrum-title { font-family: var(--font-display); font-size: 1.6rem; text-align: center; margin-bottom: var(--space-lg); }
         .spectrum-container { max-width: 900px; margin: 0 auto; padding: 0 var(--space-lg); }
         .spectrum-bar { height: 8px; background: linear-gradient(to right, var(--color-cool), var(--color-neutral), var(--color-warm)); border-radius: 4px; margin-bottom: var(--space-lg); }
-        .spectrum-labels { display: flex; justify-content: space-between; font-family: var(--font-data); font-size: 0.9rem; color: var(--color-text-subtle); margin-bottom: var(--space-xl); }
+        .spectrum-labels { display: flex; justify-content: space-between; font-family: var(--font-data); font-size: 1.1rem; color: var(--color-text-subtle); margin-bottom: var(--space-xl); }
         .spectrum-labels span:first-child { color: var(--color-cool); }
         .spectrum-labels span:last-child { color: var(--color-warm); }
         .spectrum-cities { display: flex; flex-direction: column; gap: 16px; }
         .spectrum-city { display: flex; align-items: center; gap: 16px; }
-        .spectrum-city-name { font-family: var(--font-data); font-size: 0.95rem; width: 110px; text-align: right; color: var(--color-text-muted); }
+        .spectrum-city-name { font-family: var(--font-data); font-size: 1.1rem; width: 110px; text-align: right; color: var(--color-text-muted); }
         .spectrum-city-bar-container { flex: 1; height: 36px; background: var(--color-bg-alt); border-radius: 6px; overflow: hidden; }
         .spectrum-city-bar { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; }
-        .spectrum-city-bar .temp-value { font-family: var(--font-data); font-size: 0.8rem; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .spectrum-city-bar .temp-value { font-family: var(--font-data); font-size: 1rem; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
         .spectrum-city-palette { display: flex; width: 150px; height: 28px; border-radius: 4px; overflow: hidden; }
         .spectrum-city-palette span { flex: 1; }
         
         .comparison-section { margin-top: var(--space-2xl); }
-        .comparison-title { font-family: var(--font-display); font-size: 1.6rem; text-align: center; margin-bottom: var(--space-lg); }
+        .comparison-title { font-family: var(--font-display); font-size: 1.7rem; text-align: center; margin-bottom: var(--space-lg); }
         .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto; padding: 0 var(--space-lg); }
         .comparison-card { background: var(--color-bg-alt); border-radius: 16px; padding: var(--space-lg); border: 1px solid #222; }
-        .comparison-card h4 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: var(--space-md); color: var(--color-accent); }
-        .comparison-card p { font-size: 1.05rem; color: var(--color-text-muted); margin-bottom: var(--space-md); line-height: 1.6; }
+        .comparison-card h4 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: var(--space-md); color: var(--color-accent); }
+        .comparison-card p { font-size: 1.1rem; color: var(--color-text-muted); margin-bottom: var(--space-md); line-height: 1.6; }
         .comparison-palettes { display: flex; gap: 12px; align-items: center; }
         .comparison-palette-item { flex: 1; text-align: center; }
         .comparison-palette-item .mini-bar { display: flex; height: 40px; border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
         .comparison-palette-item .mini-bar span { flex: 1; }
-        .comparison-palette-item .city-label { font-family: var(--font-data); font-size: 0.85rem; color: var(--color-text-subtle); }
-        .comparison-vs { font-family: var(--font-display); font-size: 1.2rem; font-style: italic; color: var(--color-text-subtle); }
+        .comparison-palette-item .city-label { font-family: var(--font-data); font-size: 1rem; color: var(--color-text-subtle); }
+        .comparison-vs { font-family: var(--font-display); font-size: 1.1rem; font-style: italic; color: var(--color-text-subtle); }
         
         .stats-section { margin-top: var(--space-2xl); padding: var(--space-xl) 0; background: var(--color-bg-alt); border-radius: 16px; max-width: 1000px; margin-left: auto; margin-right: auto; }
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); text-align: center; padding: 0 var(--space-lg); }
@@ -211,7 +211,7 @@
         .stat-label { font-family: var(--font-data); font-size: 1rem; color: var(--color-text-muted); }
         
         .footer { padding: var(--space-xl) 0; text-align: center; border-top: 1px solid #222; margin-top: var(--space-2xl); }
-        .footer p { font-family: var(--font-data); font-size: 0.95rem; color: var(--color-text-subtle); margin-bottom: var(--space-sm); }
+        .footer p { font-family: var(--font-data); font-size: 1.1rem; color: var(--color-text-subtle); margin-bottom: var(--space-sm); }
         
         /* RESPONSIVE */
         @media (max-width: 900px) {
@@ -246,7 +246,6 @@
 <body>
     <section class="hero">
         <h1 class="display hero-title">Chromatic<br>Geography</h1>
-        <p class="hero-subtitle">The colors of the world.</p>
         <div class="scroll-prompt">scroll</div>
     </section>
 
@@ -391,7 +390,7 @@
     <section class="image-to-city">
         <div class="city-intro container-narrow">
             <p class="display" style="font-size:clamp(1.5rem,4vw,2.2rem);text-align:center;margin-bottom:var(--space-lg);">One image gives us 6 colors.<br>How do we aggregate this for a whole city?</p>
-            <p class="muted" style="text-align:center;font-size:1.15rem;">I'll use Tokyo as an example. I extracted colors from <strong style="color:var(--color-text);">150 photographs</strong>, which included temples, streets, neon signs, markets, and trains.</p>
+            <p class="muted" style="text-align:center;font-size:1.1rem;">I'll use Tokyo as an example. I extracted colors from <strong style="color:var(--color-text);">150 photographs</strong>, which included temples, streets, neon signs, markets, and trains.</p>
         </div>
         <div class="palette-merge">
             <p class="merge-label">150 images from Tokyo × 6 colors extracted from each = 900 total colors. Here are some example palettes from other images:</p>
@@ -431,7 +430,7 @@
                     <li>Cluster similar colors and count frequency</li>
                     <li>The 6 most common become the city's palette</li>
                 </ol>
-                <p class="muted" style="margin-top:var(--space-md);">This way, outlier photos don't skew results so that the palette reflects what's consistently present.</p>
+                <p class="muted" style="margin-top:var(--space-md); font-size:1.1rem;">This way, outlier photos don't skew results so that the palette reflects what's consistently present.</p>
             </div>
         </div>
         <div class="divider"></div>
@@ -440,7 +439,7 @@
     <section class="all-cities" id="results">
         <div class="results-header container-narrow">
             <h2 class="display" style="font-size:clamp(2rem,5vw,3.5rem);text-align:center;margin-bottom:var(--space-md);">12 Cities</h2>
-            <p class="muted" style="text-align:center;font-size:1.15rem;margin-bottom:var(--space-xl);"> After analyzing 1,800 photographs (150 per city), here's what the algorithm found.</p>
+            <p class="muted" style="text-align:center;font-size:1.1rem;margin-bottom:var(--space-xl);"> After analyzing 1,800 photographs (150 per city), here's what the algorithm found.</p>
         </div>
         <div class="cities-grid container">
             <div class="city-card"><div class="city-card-palette"><span style="background:#6d1b04" data-hex="#6d1b04"></span><span style="background:#f7c36e" data-hex="#f7c36e"></span><span style="background:#843c09" data-hex="#843c09"></span><span style="background:#a7540c" data-hex="#a7540c"></span><span style="background:#da8d35" data-hex="#da8d35"></span><span style="background:#ccb464" data-hex="#ccb464"></span></div><div class="city-card-info"><h3 class="city-card-name">Bangkok</h3><p class="city-card-country">Thailand</p><p class="city-card-vibe">Temples, busy streets, and night market glow</p></div></div>
@@ -489,8 +488,8 @@
                 <h3 class="comparison-title">More Side-by-side Comparisons</h3>
                 <div class="comparison-grid">
                     <div class="comparison-card">
-                        <h4>Temperature opposites: Bangkok & Santorini</h4>
-                        <p>The warmest and coolest cities in the dataset.</p>
+                        <h4>Temperature opposites</h4>
+                        <p>Bangkok and Santorini are the warmest and coolest cities in the dataset.</p>
                         <div class="comparison-palettes">
                             <div class="comparison-palette-item"><div class="mini-bar"><span style="background:#6d1b04"></span><span style="background:#f7c36e"></span><span style="background:#843c09"></span><span style="background:#a7540c"></span><span style="background:#da8d35"></span><span style="background:#ccb464"></span></div><span class="city-label">Bangkok</span></div>
                             <span class="comparison-vs">vs</span>
@@ -498,7 +497,7 @@
                         </div>
                     </div>
                     <div class="comparison-card">
-                        <h4>Same Temperature, Different Palettes</h4>
+                        <h4>Same temperature, different palettes</h4>
                         <p>Melbourne and Rio show what two palettes with the same color temperature (exactly 62°) can look like.</p>
                         <div class="comparison-palettes">
                             <div class="comparison-palette-item"><div class="mini-bar"><span style="background:#ac9854"></span><span style="background:#e4d5cb"></span><span style="background:#8e854c"></span><span style="background:#ac4c2f"></span><span style="background:#193e50"></span><span style="background:#b5683d"></span></div><span class="city-label">Melbourne</span></div>
@@ -507,15 +506,15 @@
                         </div>
                     </div>
                     <div class="comparison-card">
-                        <h4>Almost Monochromatic: Santorini</h4>
-                        <p>The only city with a nearly single-hue palette - 5/6 colors are variations of blue. </p>
+                        <h4>Almost monochromatic</h4>
+                        <p>Santorini is the only city with a nearly single-hue palette - 5/6 colors are variations of blue. </p>
                         <div class="comparison-palettes">
                             <div class="comparison-palette-item" style="flex:1;"><div class="mini-bar"><span style="background:#047fd1"></span><span style="background:#044db5"></span><span style="background:#042884"></span><span style="background:#f5f5f5"></span><span style="background:#104b8e"></span><span style="background:#1d70ae"></span></div><span class="city-label">5 blues + 1 white</span></div>
                         </div>
                     </div>
                     <div class="comparison-card">
-                        <h4>Unexpected similarities: Tokyo & Mexico City</h4>
-                        <p>The algorithm's most similar pair despite different climates and locations. Both built from warm earth tones, vermillion, and terracotta.</p>
+                        <h4>Unexpected similarities</h4>
+                        <p>Tokyo and Mexico City form the algorithm's most similar pair despite different climates and locations. Both built from warm earth tones, vermillion, and terracotta.</p>
                         <div class="comparison-palettes">
                             <div class="comparison-palette-item"><div class="mini-bar"><span style="background:#b24824"></span><span style="background:#472115"></span><span style="background:#5d3123"></span><span style="background:#bd9b60"></span><span style="background:#bc5340"></span><span style="background:#c79568"></span></div><span class="city-label">Tokyo</span></div>
                             <span class="comparison-vs">=</span>
@@ -523,7 +522,7 @@
                         </div>
                     </div>
                     <div class="comparison-card">
-                        <h4>Saturation Spectrum</h4>
+                        <h4>Saturation spectrum</h4>
                         <p>Bangkok's palette averages 79% saturation, while Copenhagen sits at the opposite end, at 41%. Tropics versus the Nordic climate.</p>
                         <div class="comparison-palettes">
                             <div class="comparison-palette-item"><div class="mini-bar"><span style="background:#6d1b04"></span><span style="background:#f7c36e"></span><span style="background:#843c09"></span><span style="background:#a7540c"></span><span style="background:#da8d35"></span><span style="background:#ccb464"></span></div><span class="city-label">Bangkok: 79% sat</span></div>
@@ -532,7 +531,7 @@
                         </div>
                     </div>
                     <div class="comparison-card">
-                        <h4>The Green City</h4>
+                        <h4>The garden city</h4>
                         <p>Singapore is the only city where green is the dominant hue. Garden City lives up to its name, with hints of the blue glass buildings in the skyline.</p>
                         <div class="comparison-palettes">
                             <div class="comparison-palette-item" style="flex:1;"><div class="mini-bar"><span style="background:#2d5a3d"></span><span style="background:#4a9c6d"></span><span style="background:#6bc4e8"></span><span style="background:#3d7a9c"></span><span style="background:#8fbc8f"></span><span style="background:#c0dce8"></span></div><span class="city-label">Singapore</span></div>
@@ -552,7 +551,7 @@
 
     <footer class="footer container">
         <p>Data: Unsplash API • Algorithm: ColorThief (Median Cut) • Visualization: Hand-coded HTML/CSS/JS</p>
-        <p style="margin-top:var(--space-md);color:#555;">Chromatic Geography, 2024</p>
+        <p style="margin-top:var(--space-md);color:#555;">Chromatic Geography, 2025</p>
     </footer>
 
     <script>
