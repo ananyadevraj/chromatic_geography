@@ -18,18 +18,19 @@ if not ACCESS_KEY:
     exit(1)
 
 CITIES = {
-    "tokyo": ["tokyo neon signs night", "tokyo temples"],
+   "tokyo": ["tokyo neon signs night", "tokyo temples"],
     "marrakech": ["marrakech", "morocco architecture tiles"],
     "copenhagen": ["copenhagen nyhavn colorful", "copenhagen architecture"],
-    "santorini": ["santorini blue domes", "santorini white buildings greece"],
+   "santorini": ["santorini blue domes", "santorini white buildings greece"],
     "havana": ["havana cuba colorful buildings", "havana vintage cars streets"],
     "mexico city": ["mexico city colorful buildings", "coyoacan mexico streets"],
-    "istanbul": ["istanbul grand bazaar", "istanbul"],
-    "jaipur": ["jaipur pink city india", "jaipur palace"],
-    "bangkok": ["bangkok", "bangkok street market"],
-    "melbourne": ["melbourne", "melbourne architecture"],
+   "istanbul": ["istanbul grand bazaar", "istanbul"],
+   "jaipur": ["jaipur pink city india", "jaipur palace"],
+   "bangkok": ["bangkok", "bangkok street market"],
+ "melbourne": ["melbourne", "melbourne architecture"],
     "singapore": ["singapore green city", "singapore skyline", "singapore"],
     "rio de janeiro": ["rio brazil carnival", "rio brazil iconic", "rio favellas"],
+    "new york city": ["new york city","new york buildings","new york neighborhoods","new york central park"]
 }
 
 IMAGES_PER_QUERY = 25
