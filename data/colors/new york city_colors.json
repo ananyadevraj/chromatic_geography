@@ -1,0 +1,938 @@
+{
+  "city": "new york city",
+  "image_count": 99,
+  "individual_palettes": [
+    {
+      "image": "2U8p2D0K1y8.jpg",
+      "colors": [
+        "#d29b26",
+        "#d03939",
+        "#2f6e72",
+        "#674a2c",
+        "#572628",
+        "#d5bbb1"
+      ]
+    },
+    {
+      "image": "FD-gzGKS5sY.jpg",
+      "colors": [
+        "#dbcbc4"
+      ]
+    },
+    {
+      "image": "jhU6g9EShho.jpg",
+      "colors": [
+        "#bec4bc",
+        "#4c544d",
+        "#1f211e",
+        "#a6aca4",
+        "#848c84",
+        "#e3e4e3"
+      ]
+    },
+    {
+      "image": "aQJ4giihsUU.jpg",
+      "colors": [
+        "#d6c8b7",
+        "#1f2a35"
+      ]
+    },
+    {
+      "image": "oNyCplx2FmM.jpg",
+      "colors": [
+        "#edeef4",
+        "#545c6c",
+        "#c3c5cd",
+        "#849493",
+        "#434c4d",
+        "#a4a5ac"
+      ]
+    },
+    {
+      "image": "AJ3JAYD6Zxk.jpg",
+      "colors": [
+        "#16396b",
+        "#9c4c24",
+        "#654229",
+        "#1c2641"
+      ]
+    },
+    {
+      "image": "9gHxgvxayOo.jpg",
+      "colors": [
+        "#97b0cb",
+        "#bbc5d5"
+      ]
+    },
+    {
+      "image": "gU_aBnVCJL4.jpg",
+      "colors": [
+        "#b58954",
+        "#85543c",
+        "#39291a"
+      ]
+    },
+    {
+      "image": "MMdf6NlivGs.jpg",
+      "colors": [
+        "#0f446c",
+        "#b2cbe4",
+        "#68a4c4",
+        "#c47c6c",
+        "#764134",
+        "#9cbace"
+      ]
+    },
+    {
+      "image": "iecsDu416PE.jpg",
+      "colors": [
+        "#481a0d",
+        "#dec154",
+        "#cf7c53",
+        "#ab5736",
+        "#8a442d",
+        "#603d29"
+      ]
+    },
+    {
+      "image": "0V6DmTuJaIk.jpg",
+      "colors": [
+        "#375a5c",
+        "#574e41",
+        "#7a6f64",
+        "#a29c92",
+        "#161714",
+        "#c7cdcd"
+      ]
+    },
+    {
+      "image": "Sfn8f32ZIj0.jpg",
+      "colors": [
+        "#4a4a4a",
+        "#747474",
+        "#9a9a9a",
+        "#f6f6f6",
+        "#101010",
+        "#b4b4b4"
+      ]
+    },
+    {
+      "image": "aTsvVRx26jw.jpg",
+      "colors": [
+        "#3ca5f8",
+        "#3191df",
+        "#81b6e7",
+        "#ddd2c3"
+      ]
+    },
+    {
+      "image": "h7rOzTmGxWE.jpg",
+      "colors": [
+        "#e0ae43",
+        "#4a2e0f",
+        "#c94c43",
+        "#86bbc7"
+      ]
+    },
+    {
+      "image": "a0x0H8Wq87Y.jpg",
+      "colors": [
+        "#dacfbd"
+      ]
+    },
+    {
+      "image": "LY1eyQMFeyo.jpg",
+      "colors": [
+        "#044c94",
+        "#b1dcf6",
+        "#1a76a8",
+        "#33a4de",
+        "#64ace1",
+        "#8eb4dd"
+      ]
+    },
+    {
+      "image": "FQFu5ZspS_A.jpg",
+      "colors": [
+        "#2c496c",
+        "#30351d",
+        "#303a48"
+      ]
+    },
+    {
+      "image": "9zQkRU9IsDk.jpg",
+      "colors": [
+        "#3c848c",
+        "#d4b4a4"
+      ]
+    },
+    {
+      "image": "UExx0KnnkjY.jpg",
+      "colors": [
+        "#5a3e2d",
+        "#447c84",
+        "#dec8c1",
+        "#876048",
+        "#352a20"
+      ]
+    },
+    {
+      "image": "fxxxb3URdK4.jpg",
+      "colors": [
+        "#b0365e",
+        "#812956"
+      ]
+    },
+    {
+      "image": "7oCyxMr5H9g.jpg",
+      "colors": [
+        "#766818",
+        "#dfcc79",
+        "#95b8e0",
+        "#c4cf6c",
+        "#3c642c",
+        "#6e8cbc"
+      ]
+    },
+    {
+      "image": "sQBjGkY9A5U.jpg",
+      "colors": [
+        "#3e3127"
+      ]
+    },
+    {
+      "image": "55jhj2GQtSA.jpg",
+      "colors": [
+        "#e6c6a7",
+        "#d1af8d",
+        "#2f596b",
+        "#ba6765"
+      ]
+    },
+    {
+      "image": "KvPJgZlcyo0.jpg",
+      "colors": [
+        "#e4ecfb",
+        "#ccd3f1",
+        "#0c0d16",
+        "#5c7494",
+        "#9da7c2",
+        "#3b3f4d"
+      ]
+    },
+    {
+      "image": "5eymZgGOl8E.jpg",
+      "colors": [
+        "#c09f74",
+        "#c6b194"
+      ]
+    },
+    {
+      "image": "-cTrOFIF12Q.jpg",
+      "colors": [
+        "#cc4c04",
+        "#7b600b",
+        "#ebc472",
+        "#dc9c57",
+        "#2ab1b1",
+        "#4f2918"
+      ]
+    },
+    {
+      "image": "TaCk3NspYe0.jpg",
+      "colors": [
+        "#c95035",
+        "#c58259",
+        "#2e324b"
+      ]
+    },
+    {
+      "image": "3g3IOLWIfyM.jpg",
+      "colors": [
+        "#b8423d",
+        "#412d2b"
+      ]
+    },
+    {
+      "image": "WOxjOFSMX98.jpg",
+      "colors": [
+        "#8cbfe6",
+        "#347cb7",
+        "#5a91d0",
+        "#ac7c35",
+        "#27425c",
+        "#3f668a"
+      ]
+    },
+    {
+      "image": "l8ypMiU1Hio.jpg",
+      "colors": [
+        "#62bef1",
+        "#1f67ba",
+        "#4186de",
+        "#25156b",
+        "#245b9b",
+        "#a8334b"
+      ]
+    },
+    {
+      "image": "Zg9Jwm86LRw.jpg",
+      "colors": [
+        "#ad6442"
+      ]
+    },
+    {
+      "image": "u6HB3DZYiaw.jpg",
+      "colors": [
+        "#3e83ab",
+        "#50a2b8",
+        "#c2d3e4"
+      ]
+    },
+    {
+      "image": "SVVTZtTGyaU.jpg",
+      "colors": [
+        "#c58247",
+        "#449dbc",
+        "#b68c6d",
+        "#92bbc8"
+      ]
+    },
+    {
+      "image": "9w7UG9PeptE.jpg",
+      "colors": [
+        "#2c64c0",
+        "#4d7ed6",
+        "#89b1df",
+        "#849fc7",
+        "#24334d",
+        "#4a6598"
+      ]
+    },
+    {
+      "image": "gdSVCQuPYBw.jpg",
+      "colors": [
+        "#d4bc4c",
+        "#3494c4",
+        "#601e45",
+        "#56461f",
+        "#c782ad",
+        "#75a6c1"
+      ]
+    },
+    {
+      "image": "59kcG3De7nM.jpg",
+      "colors": [
+        "#87a3c1"
+      ]
+    },
+    {
+      "image": "BIpoEHJtuN4.jpg",
+      "colors": [
+        "#ca8e4c",
+        "#b0c9e0",
+        "#91b2d3",
+        "#4975af",
+        "#a08454"
+      ]
+    },
+    {
+      "image": "YPcVXzI3_DM.jpg",
+      "colors": [
+        "#addcfa",
+        "#77b1f0",
+        "#498ac9",
+        "#326997",
+        "#24446c",
+        "#d0b399"
+      ]
+    },
+    {
+      "image": "epJoNR_4feM.jpg",
+      "colors": [
+        "#4ca0ba",
+        "#4688a2",
+        "#bad4df",
+        "#8eb8ca"
+      ]
+    },
+    {
+      "image": "xFd4plLPVK4.jpg",
+      "colors": [
+        "#9d7e51",
+        "#3f3327"
+      ]
+    },
+    {
+      "image": "CrqRf6b9xUQ.jpg",
+      "colors": [
+        "#b25c41",
+        "#345a7b",
+        "#b68965",
+        "#30475c",
+        "#1b2833"
+      ]
+    },
+    {
+      "image": "ji6L96WF67s.jpg",
+      "colors": [
+        "#af3a1c",
+        "#ecca93",
+        "#d37f52",
+        "#388f9c",
+        "#87503a",
+        "#523429"
+      ]
+    },
+    {
+      "image": "GMTx7uC6lNc.jpg",
+      "colors": [
+        "#b5520a",
+        "#acc2db",
+        "#91acc8",
+        "#604232",
+        "#8c6c49"
+      ]
+    },
+    {
+      "image": "Ozu4V1j4CgU.jpg",
+      "colors": [
+        "#2cc4fc",
+        "#0a89f8",
+        "#3ea6f7",
+        "#7fc2ed",
+        "#225e84",
+        "#c2574f"
+      ]
+    },
+    {
+      "image": "kheTI8pIywU.jpg",
+      "colors": [
+        "#f0c99f",
+        "#4c74c4",
+        "#4c261b",
+        "#6683c6",
+        "#cb9382",
+        "#92a4d1"
+      ]
+    },
+    {
+      "image": "ZXBPMnNVtlE.jpg",
+      "colors": [
+        "#d01f40",
+        "#c37a3c",
+        "#d69fab"
+      ]
+    },
+    {
+      "image": "FZHWvkquK2o.jpg",
+      "colors": [
+        "#a47455"
+      ]
+    },
+    {
+      "image": "_lgEADKECy4.jpg",
+      "colors": [
+        "#bd3c50",
+        "#6f4b26",
+        "#7e7fcc",
+        "#1c1b36"
+      ]
+    },
+    {
+      "image": "GlQ3oI4AKUk.jpg",
+      "colors": [
+        "#c98836",
+        "#d1b790",
+        "#6488b7",
+        "#90a8cb",
+        "#58402b",
+        "#36261b"
+      ]
+    },
+    {
+      "image": "j4Wc_Ezq7OE.jpg",
+      "colors": [
+        "#b1c5de",
+        "#e5d5c2",
+        "#cdb8a1",
+        "#302c1e"
+      ]
+    },
+    {
+      "image": "hhKZsZV6y6w.jpg",
+      "colors": [
+        "#d5815b",
+        "#77aed8",
+        "#9cbddd",
+        "#3c6c8c",
+        "#774c37",
+        "#c0cce0"
+      ]
+    },
+    {
+      "image": "F7WfynkQlhc.jpg",
+      "colors": [
+        "#d26447",
+        "#d0945a",
+        "#c39f81",
+        "#ccb59b"
+      ]
+    },
+    {
+      "image": "SPObAjlkKVo.jpg",
+      "colors": [
+        "#d29c80",
+        "#74accc",
+        "#6b2e35",
+        "#b05f4f",
+        "#5a87b0",
+        "#d6bfae"
+      ]
+    },
+    {
+      "image": "7pVApgtxWP8.jpg",
+      "colors": [
+        "#c8506d",
+        "#365f2a",
+        "#b59767",
+        "#537f40",
+        "#2e3f27"
+      ]
+    },
+    {
+      "image": "quHB70LB5uI.jpg",
+      "colors": [
+        "#d4b4a6"
+      ]
+    },
+    {
+      "image": "hAtZ_I9nKnA.jpg",
+      "colors": [
+        "#9fc4df",
+        "#4b8cb0",
+        "#6e94b3",
+        "#446381",
+        "#212d37"
+      ]
+    },
+    {
+      "image": "0i5BMSQ6lr4.jpg",
+      "colors": [
+        "#a24525",
+        "#b5643a",
+        "#c5a192"
+      ]
+    },
+    {
+      "image": "3zpSsvaGCDU.jpg",
+      "colors": [
+        "#b86e49",
+        "#be8e6a",
+        "#694137",
+        "#402b27"
+      ]
+    },
+    {
+      "image": "y9WmMWaiftc.jpg",
+      "colors": [
+        "#0454a4",
+        "#247db9",
+        "#cda768",
+        "#997b49",
+        "#4e412f"
+      ]
+    },
+    {
+      "image": "g2QDfOx6Ht8.jpg",
+      "colors": [
+        "#f6bb88",
+        "#a5472a",
+        "#c86f33",
+        "#3f1912",
+        "#6f3321",
+        "#b97354"
+      ]
+    },
+    {
+      "image": "qjN-uw6YibY.jpg",
+      "colors": [
+        "#d4873b",
+        "#5b361f",
+        "#8e5d32",
+        "#dabc9b",
+        "#c4ccdc"
+      ]
+    },
+    {
+      "image": "wOj5odhDOZ0.jpg",
+      "colors": [
+        "#3f291b",
+        "#b57c5b",
+        "#553d2b"
+      ]
+    },
+    {
+      "image": "wKZ3FVpe5KQ.jpg",
+      "colors": [
+        "#ba474a",
+        "#bb8d51"
+      ]
+    },
+    {
+      "image": "yWcy5ymL88A.jpg",
+      "colors": [
+        "#4c2419",
+        "#35442c"
+      ]
+    },
+    {
+      "image": "LGtJ44QWo_c.jpg",
+      "colors": [
+        "#b24f1a",
+        "#c5753e",
+        "#2a5b64",
+        "#347677",
+        "#45939c",
+        "#6eb6b7"
+      ]
+    },
+    {
+      "image": "shCdydVQWow.jpg",
+      "colors": [
+        "#7a8422",
+        "#7e9fcd",
+        "#606229",
+        "#aac4db",
+        "#2c4465",
+        "#49648e"
+      ]
+    },
+    {
+      "image": "RKydK7kfo5o.jpg",
+      "colors": [
+        "#c4d0dc"
+      ]
+    },
+    {
+      "image": "4RdDhDWXKEQ.jpg",
+      "colors": [
+        "#deb25c",
+        "#99554a",
+        "#202d3f"
+      ]
+    },
+    {
+      "image": "iVW7mZPwd4g.jpg",
+      "colors": [
+        "#d86f32",
+        "#c4322e",
+        "#62a8d1",
+        "#1a2a46",
+        "#c58963",
+        "#344d71"
+      ]
+    },
+    {
+      "image": "pmdxbRo9MHI.jpg",
+      "colors": [
+        "#be5670",
+        "#b77581"
+      ]
+    },
+    {
+      "image": "itfu4cIeCyo.jpg",
+      "colors": [
+        "#89c2f5",
+        "#5e96d8",
+        "#c38835",
+        "#4480c5",
+        "#bf443f",
+        "#264266"
+      ]
+    },
+    {
+      "image": "H7uCPK8aXvs.jpg",
+      "colors": [
+        "#885309",
+        "#0d9f8c",
+        "#7a1a1a",
+        "#daa858",
+        "#d46a66",
+        "#267974"
+      ]
+    },
+    {
+      "image": "IFM29XVI2EI.jpg",
+      "colors": [
+        "#0464c6",
+        "#1d99ec",
+        "#5aade6",
+        "#9acbee",
+        "#2476a1",
+        "#c29c3c"
+      ]
+    },
+    {
+      "image": "bLppF5sbXPo.jpg",
+      "colors": [
+        "#cd7f3c",
+        "#694a33",
+        "#d7c2af"
+      ]
+    },
+    {
+      "image": "NYk55gkDbLA.jpg",
+      "colors": [
+        "#c5d5e7",
+        "#a5a854",
+        "#1e2736",
+        "#474930"
+      ]
+    },
+    {
+      "image": "A2CChTZvzTE.jpg",
+      "colors": [
+        "#ba8f59",
+        "#ac7454"
+      ]
+    },
+    {
+      "image": "eNAIvl15U58.jpg",
+      "colors": [
+        "#05798f",
+        "#309eb1",
+        "#5badc0",
+        "#8cc0cf",
+        "#ae875f",
+        "#ac6464"
+      ]
+    },
+    {
+      "image": "zElWTQnBSwQ.jpg",
+      "colors": [
+        "#b6d4f4",
+        "#9bb7e3",
+        "#7b9ccf",
+        "#37507a",
+        "#5c78ad"
+      ]
+    },
+    {
+      "image": "_QdFx92MO2U.jpg",
+      "colors": [
+        "#d8913e",
+        "#c5442c",
+        "#ac9c54",
+        "#d1b4a3",
+        "#658eae"
+      ]
+    },
+    {
+      "image": "Qr5pi1_GlvY.jpg",
+      "colors": [
+        "#aee0f7",
+        "#359adc",
+        "#7ebce3",
+        "#2b72a9",
+        "#5e9eca",
+        "#33607c"
+      ]
+    },
+    {
+      "image": "A4xAdKB4To0.jpg",
+      "colors": [
+        "#071324",
+        "#a4896c",
+        "#45535c",
+        "#30393e",
+        "#6c7c81",
+        "#97a3a7"
+      ]
+    },
+    {
+      "image": "CR0E20Of7yU.jpg",
+      "colors": [
+        "#1a2c41",
+        "#8f423d",
+        "#729ebb"
+      ]
+    },
+    {
+      "image": "vMLfRVkWItI.jpg",
+      "colors": [
+        "#ced64e",
+        "#368cc0",
+        "#6d812c",
+        "#8ea03a",
+        "#c88c6c",
+        "#84aac4"
+      ]
+    },
+    {
+      "image": "42iH1BETeoE.jpg",
+      "colors": [
+        "#397914",
+        "#629728",
+        "#1d4916",
+        "#bacf6e",
+        "#97c352",
+        "#c4645c"
+      ]
+    },
+    {
+      "image": "J6mySj3wntg.jpg",
+      "colors": [
+        "#fbad32",
+        "#b32d08",
+        "#db7734",
+        "#e1a68b",
+        "#724131",
+        "#36251b"
+      ]
+    },
+    {
+      "image": "uB-VAYlZCcs.jpg",
+      "colors": [
+        "#c3cddb"
+      ]
+    },
+    {
+      "image": "4tpp6bHQb1k.jpg",
+      "colors": [
+        "#8c3c04",
+        "#9d7c39",
+        "#725e2f",
+        "#d2c595"
+      ]
+    },
+    {
+      "image": "0B8qFIszEe4.jpg",
+      "colors": [
+        "#7d3405",
+        "#cfa249",
+        "#ac9c2e",
+        "#946a2b",
+        "#644a22",
+        "#304418"
+      ]
+    },
+    {
+      "image": "HDQJAAmajzc.jpg",
+      "colors": [
+        "#07070b",
+        "#212129",
+        "#acac9c",
+        "#605c6c",
+        "#474750",
+        "#95949c"
+      ]
+    },
+    {
+      "image": "K_Szh7Wz--Q.jpg",
+      "colors": [
+        "#c743b7",
+        "#c28e53",
+        "#c96ac3",
+        "#28471f",
+        "#4e903f",
+        "#d7a5d4"
+      ]
+    },
+    {
+      "image": "kZokA2VTKn4.jpg",
+      "colors": [
+        "#e58554",
+        "#d7514e",
+        "#6cadcb",
+        "#243c64",
+        "#272a3b"
+      ]
+    },
+    {
+      "image": "C9VN0YAj2Wk.jpg",
+      "colors": [
+        "#a5523e"
+      ]
+    },
+    {
+      "image": "f_yIUxizfAU.jpg",
+      "colors": [
+        "#563a16",
+        "#835a23",
+        "#d4b57b",
+        "#acb45c",
+        "#a3824b"
+      ]
+    },
+    {
+      "image": "Gm8MDj7NgWQ.jpg",
+      "colors": [
+        "#9eccd4",
+        "#2f6763",
+        "#7c4c3c",
+        "#4a9796",
+        "#58482e",
+        "#72b4b4"
+      ]
+    },
+    {
+      "image": "5-mmzR1H3ng.jpg",
+      "colors": [
+        "#f5f0bb",
+        "#e5cb8f",
+        "#c9a676",
+        "#926c48"
+      ]
+    },
+    {
+      "image": "hnLRuNy8N5w.jpg",
+      "colors": [
+        "#446594",
+        "#92abc9",
+        "#393821",
+        "#2e3645"
+      ]
+    },
+    {
+      "image": "DWdh1fB7dus.jpg",
+      "colors": [
+        "#358ac8",
+        "#8aabcd",
+        "#627d36",
+        "#b0c4d8",
+        "#7e974b"
+      ]
+    },
+    {
+      "image": "2x6vURol6cM.jpg",
+      "colors": [
+        "#6c6419",
+        "#aab129",
+        "#cdb338",
+        "#3f4714",
+        "#be6c41",
+        "#958834"
+      ]
+    },
+    {
+      "image": "V4cHacmEnW8.jpg",
+      "colors": [
+        "#bf7b50",
+        "#b84a45",
+        "#92bdd1",
+        "#2c1935",
+        "#bd937c",
+        "#492f40"
+      ]
+    }
+  ],
+  "aggregated_palette": [
+    "#d29b26",
+    "#d03939",
+    "#2f6e72",
+    "#674a2c",
+    "#572628",
+    "#d5bbb1"
+  ]
+}
