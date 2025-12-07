@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chromatic Geography</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    
+    <style>
+        *, *::before, *::after { 
+            margin: 0;
+            padding: 0; 
+            box-sizing: border-box; }
+        
+        :root {
+            --color-bg: #0c0c0c;
+            --color-bg-alt: #111111;
+            --color-text: #f5f5f5;
+            --color-text-muted: #d4d0c8;
+            --color-text-subtle: #777;
+            --color-accent: #e4a487;
+            --color-warm: #d4683a;
+            --color-cool: #0096c7;
+            --color-neutral: #7a9a6d;
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Cormorant Garamond', Georgia, serif;
+            --font-data: 'DM Sans', -apple-system, sans-serif;
+            --space-xs: 4px;
+            --space-sm: 8px; 
+            --space-md: 16px; 
+            --space-lg: 32px; 
+            --space-xl: 64px; 
+            --space-2xl: 128px;
+            --max-width: 1200px; 
+            --max-width-narrow: 750px;
+        }
+        
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: var(--font-body); 
+            font-size: 22px; line-height: 1.7; 
+            color: var(--color-text); 
+            background: var(--color-bg); 
+            overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased; }
+        
+        .display { font-family: var(--font-display); font-weight: 500; line-height: 1.1; }
+        .data { font-family: var(--font-data); font-size: 1rem; font-weight: 500; }
+        .muted { color: var(--color-text-muted); }
+        .subtle { color: var(--color-text-subtle); }
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-lg); }
+        .container-narrow { max-width: var(--max-width-narrow); margin: 0 auto; padding: 0 var(--space-lg); }
+        
+        /* HERO */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: var(--space-xl); position: relative; background: radial-gradient(ellipse at 50% 0%, rgba(201,70,61,0.08) 0%, transparent 50%), var(--color-bg); }
+        .hero-title { font-size: clamp(2.5rem, 10vw, 7rem); margin-bottom: var(--space-md); letter-spacing: 0.12em; text-transform: uppercase; }
+        .hero-subtitle { font-size: clamp(1.1rem, 3vw, 1.5rem); color: var(--color-text-muted); font-style: italic; max-width: 500px; margin-bottom: var(--space-2xl); }
+        .scroll-prompt { position: absolute; bottom: var(--space-xl); font-family: var(--font-data); font-size: 0.85rem; color: var(--color-text-subtle); letter-spacing: 0.15em; text-transform: uppercase; animation: float 3s ease-in-out infinite; }
+        .scroll-prompt::after { content: '↓'; display: block; margin-top: var(--space-sm); font-size: 1.3rem; }
+        @keyframes float { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(10px); opacity: 1; } }
+        
+        /* INTRO */
+        .intro { padding: var(--space-2xl) 0; }
+        .intro-text { font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.8; max-width: 800px; margin: 0 auto; text-align: center; }
+        .intro-text p { margin-bottom: var(--space-lg); }
+        .highlight-number { font-family: var(--font-display); font-weight: 600; color: var(--color-accent); }
+        .method-intro { padding: var(--space-2xl) 0; text-align: center; background: var(--color-bg-alt); }
+        .method-intro-question { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.8rem); font-style: italic; color: var(--color-text-muted); margin-bottom: var(--space-lg); }
+        .method-intro-answer { font-size: 1.3rem; max-width: 600px; margin: 0 auto; }
+        .divider { width: 60px; height: 1px; background: var(--color-text-subtle); margin: var(--space-xl) auto; }
+        
+        /* SCROLLYTELLING */
+        .algorithm { background: var(--color-bg); }
+        .scrolly { display: flex; position: relative; }
+        .scrolly-graphic { position: sticky; top: 0; width: 50%; height: 100vh; display: flex; align-items: center; justify-content: center; background: #080808; }
+        .viz-wrapper { position: relative; width: 400px; height: 450px; }
+        .viz-state { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.5s ease; }
+        .viz-state.active { opacity: 1; visibility: visible; }
+        .viz-image { width: 100%; max-width: 380px; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .viz-caption { margin-top: var(--space-md); font-family: var(--font-data); font-size: 0.9rem; color: var(--color-text-subtle); }
+        
+        .pixel-grid { width: 320px; height: 320px; display: grid; grid-template-columns: repeat(16, 1fr); gap: 2px; padding: 8px; background: #111; border-radius: 8px; }
+        .pixel-grid .pixel { border-radius: 2px; }
+        .rgb-demo { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 24px; }
+        .rgb-sample { width: 140px; height: 100px; border-radius: 8px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+        .rgb-values { font-family: var(--font-data); font-size: 0.85rem; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
+        .colorspace-container { position: relative; }
+        .colorspace-box { width: 300px; height: 300px; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; position: relative; overflow: hidden; }
+        .colorspace-box .dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; transform: translate(-50%, -50%); }
+        .axis-x { position: absolute; bottom: -24px; right: 0; font-family: var(--font-data); font-size: 0.75rem; color: var(--color-text-subtle); }
+        .axis-y { position: absolute; top: -24px; left: 0; font-family: var(--font-data); font-size: 0.75rem; color: var(--color-text-subtle); }
+        
+        .boxes-container { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; align-items: center; }
+        .split-box { border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-size: 1rem; color: rgba(255,255,255,0.9); box-shadow: 0 8px 30px rgba(0,0,0,0.4); transition: transform 0.3s; }
+        .split-box:hover { transform: scale(1.05); }
+        .box-all { width: 300px; height: 180px; background: linear-gradient(135deg, #c9463d, #8b2d23 25%, #d4a574 50%, #1a3a4a 75%, #2d5a6b); }
+        .box-warm { width: 150px; height: 150px; background: linear-gradient(135deg, #c9463d, #d4a574); }
+        .box-cool { width: 150px; height: 150px; background: linear-gradient(135deg, #1a3a4a, #2d5a6b); }
+        .boxes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 320px; }
+        .boxes-grid .split-box { width: 95px; height: 95px; }
+        
+        .final-palette-display { text-align: center; }
+        .palette-bar-large { display: flex; width: 340px; height: 100px; border-radius: 12px; overflow: hidden; box-shadow: 0 12px 50px rgba(0,0,0,0.5); }
+        .palette-bar-large span { flex: 1; position: relative; cursor: pointer; transition: flex 0.3s; }
+        .palette-bar-large span:hover { flex: 1.8; }
+        .palette-bar-large span::after { content: attr(data-hex); position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); font-family: var(--font-data); font-size: 0.7rem; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.8); opacity: 0; transition: opacity 0.2s; }
+        .palette-bar-large span:hover::after { opacity: 1; }
+        .palette-label { margin-top: var(--space-md); font-size: 1.1rem; font-style: italic; color: var(--color-text-muted); }
+        
+        .scrolly-text { width: 50%; padding: 100vh 60px; }
+        .scroll-step { min-height: 80vh; display: flex; align-items: center; opacity: 0.15; transition: opacity 0.5s; }
+        .scroll-step.active { opacity: 1; }
+        .step-content { background: var(--color-bg-alt); border-radius: 12px; padding: var(--space-lg); max-width: 440px; border-left: 3px solid var(--color-text-subtle); transition: border-color 0.3s; }
+        .scroll-step.active .step-content { border-left-color: var(--color-accent); }
+        .step-heading { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: var(--space-md); }
+        .step-content p { margin-bottom: var(--space-md); color: var(--color-text-muted); font-size: 1.1rem; }
+        .step-content p:last-child { margin-bottom: 0; }
+        .step-content strong { color: var(--color-text); }
+        
+        /* IMAGE TO CITY */
+        .image-to-city { padding: var(--space-2xl) 0; background: var(--color-bg); }
+        .city-intro { margin-bottom: var(--space-xl); }
+        .palette-merge { max-width: 900px; margin: 0 auto; text-align: center; padding: 0 var(--space-lg); }
+        .merge-label { font-family: var(--font-data); font-size: 1rem; color: var(--color-text-subtle); margin-bottom: var(--space-lg); }
+        .mini-palettes-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: var(--space-lg); }
+        .mini-palette { display: flex; height: 40px; border-radius: 6px; overflow: hidden; opacity: 0.8; transition: all 0.3s; }
+        .mini-palette:hover { opacity: 1; transform: scale(1.05); }
+        .mini-palette span { flex: 1; }
+        .merge-arrow { padding: var(--space-lg) 0; color: var(--color-text-subtle); }
+        .merge-arrow span { font-size: 2.5rem; display: block; margin-bottom: var(--space-sm); animation: bounce 2s ease-in-out infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+        .merge-arrow p { font-family: var(--font-data); font-size: 0.9rem; }
+        .city-palette-result { margin-top: var(--space-lg); }
+        .city-palette-bar { display: flex; height: 90px; max-width: 420px; margin: 0 auto var(--space-md); border-radius: 12px; overflow: hidden; box-shadow: 0 12px 50px rgba(0,0,0,0.4); }
+        .city-palette-bar span { flex: 1; cursor: pointer; position: relative; transition: flex 0.3s; }
+        .city-palette-bar span:hover { flex: 1.5; }
+        .city-palette-bar span::after { content: attr(data-hex); position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); font-family: var(--font-data); font-size: 0.7rem; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.8); opacity: 0; transition: opacity 0.2s; }
+        .city-palette-bar span:hover::after { opacity: 1; }
+        .city-palette-name { font-family: var(--font-display); font-size: 2rem; margin-bottom: var(--space-xs); }
+        .city-palette-description { font-size: 1.1rem; font-style: italic; }
+        .process-explanation { background: var(--color-bg-alt); padding: var(--space-lg); border-radius: 12px; border-left: 3px solid var(--color-accent); }
+        .process-explanation h4 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: var(--space-md); }
+        .process-explanation ol { margin-left: var(--space-lg); color: var(--color-text-muted); font-size: 1.1rem; }
+        .process-explanation li { margin-bottom: var(--space-sm); }
+        
+        /* ALL CITIES */
+        .all-cities { padding: var(--space-2xl) 0; background: var(--color-bg-alt); }
+        .results-header { margin-bottom: var(--space-xl); }
+        .cities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; }
+        .city-card { background: var(--color-bg); border-radius: 16px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+        .city-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+        .city-card-palette { display: flex; height: 110px; }
+        .city-card-palette span { flex: 1; cursor: pointer; position: relative; transition: flex 0.3s; }
+        .city-card-palette span:hover { flex: 2; }
+        .city-card-palette span::after { content: attr(data-hex); position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-family: var(--font-data); font-size: 0.7rem; color: white; text-shadow: 0 1px 4px rgba(0,0,0,0.9); opacity: 0; transition: opacity 0.2s; }
+        .city-card-palette span:hover::after { opacity: 1; }
+        .city-card-info { padding: 22px 26px; }
+        .city-card-name { font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 4px; }
+        .city-card-country { font-family: var(--font-data); font-size: 0.85rem; color: var(--color-text-subtle); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-sm); }
+        .city-card-vibe { font-size: 1.05rem; color: var(--color-text-muted); line-height: 1.5; }
+        
+        /* INSIGHTS */
+        .insights { padding: var(--space-2xl) 0; background: var(--color-bg); }
+        .insights-header { text-align: center; margin-bottom: var(--space-xl); }
+        .insights-header h2 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: var(--space-md); }
+        .insights-header p { font-size: 1.2rem; color: var(--color-text-muted); max-width: 600px; margin: 0 auto; }
+        
+        /* TEMPERATURE EXPLANATION */
+        .temp-explanation { max-width: 800px; margin: 0 auto var(--space-xl); padding: 0 var(--space-lg); }
+        .temp-explanation h4 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: var(--space-md); }
+        .temp-explanation p { font-size: 1.05rem; color: var(--color-text-muted); margin-bottom: var(--space-md); line-height: 1.7; }
+        .formula { font-family: var(--font-data); background: #1a1a1a; padding: 16px 20px; border-radius: 8px; margin: 16px 0; border-left: 3px solid var(--color-accent); font-size: 0.95rem; overflow-x: auto; }
+        .formula code { color: #e4a487; }
+        .formula .comment { color: #666; }
+        
+        .spectrum-section { margin-bottom: var(--space-2xl); }
+        .spectrum-title { font-family: var(--font-display); font-size: 1.6rem; text-align: center; margin-bottom: var(--space-lg); }
+        .spectrum-container { max-width: 900px; margin: 0 auto; padding: 0 var(--space-lg); }
+        .spectrum-bar { height: 8px; background: linear-gradient(to right, var(--color-cool), var(--color-neutral), var(--color-warm)); border-radius: 4px; margin-bottom: var(--space-lg); }
+        .spectrum-labels { display: flex; justify-content: space-between; font-family: var(--font-data); font-size: 0.9rem; color: var(--color-text-subtle); margin-bottom: var(--space-xl); }
+        .spectrum-labels span:first-child { color: var(--color-cool); }
+        .spectrum-labels span:last-child { color: var(--color-warm); }
+        .spectrum-cities { display: flex; flex-direction: column; gap: 16px; }
+        .spectrum-city { display: flex; align-items: center; gap: 16px; }
+        .spectrum-city-name { font-family: var(--font-data); font-size: 0.95rem; width: 110px; text-align: right; color: var(--color-text-muted); }
+        .spectrum-city-bar-container { flex: 1; height: 36px; background: var(--color-bg-alt); border-radius: 6px; overflow: hidden; }
+        .spectrum-city-bar { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; }
+        .spectrum-city-bar .temp-value { font-family: var(--font-data); font-size: 0.8rem; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .spectrum-city-palette { display: flex; width: 150px; height: 28px; border-radius: 4px; overflow: hidden; }
+        .spectrum-city-palette span { flex: 1; }
+        
+        .comparison-section { margin-top: var(--space-2xl); }
+        .comparison-title { font-family: var(--font-display); font-size: 1.6rem; text-align: center; margin-bottom: var(--space-lg); }
+        .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto; padding: 0 var(--space-lg); }
+        .comparison-card { background: var(--color-bg-alt); border-radius: 16px; padding: var(--space-lg); border: 1px solid #222; }
+        .comparison-card h4 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: var(--space-md); color: var(--color-accent); }
+        .comparison-card p { font-size: 1.05rem; color: var(--color-text-muted); margin-bottom: var(--space-md); line-height: 1.6; }
+        .comparison-palettes { display: flex; gap: 12px; align-items: center; }
+        .comparison-palette-item { flex: 1; text-align: center; }
+        .comparison-palette-item .mini-bar { display: flex; height: 40px; border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
+        .comparison-palette-item .mini-bar span { flex: 1; }
+        .comparison-palette-item .city-label { font-family: var(--font-data); font-size: 0.85rem; color: var(--color-text-subtle); }
+        .comparison-vs { font-family: var(--font-display); font-size: 1.2rem; font-style: italic; color: var(--color-text-subtle); }
+        
+        .stats-section { margin-top: var(--space-2xl); padding: var(--space-xl) 0; background: var(--color-bg-alt); border-radius: 16px; max-width: 1000px; margin-left: auto; margin-right: auto; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); text-align: center; padding: 0 var(--space-lg); }
+        .stat-number { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 600; color: var(--color-accent); margin-bottom: var(--space-xs); }
+        .stat-label { font-family: var(--font-data); font-size: 1rem; color: var(--color-text-muted); }
+        
+        .footer { padding: var(--space-xl) 0; text-align: center; border-top: 1px solid #222; margin-top: var(--space-2xl); }
+        .footer p { font-family: var(--font-data); font-size: 0.95rem; color: var(--color-text-subtle); margin-bottom: var(--space-sm); }
+        
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            body { font-size: 20px; }
+            .scrolly { flex-direction: column; }
+            .scrolly-graphic { width: 100%; height: 45vh; min-height: 350px; z-index: 10; }
+            .viz-wrapper { width: 90%; max-width: 320px; height: auto; }
+            .scrolly-text { width: 100%; padding: 60px 24px; background: var(--color-bg); }
+            .scroll-step { min-height: auto; padding: 40px 0; }
+            .step-content { max-width: 100%; }
+            .pixel-grid { width: 240px; height: 240px; }
+            .colorspace-box { width: 220px; height: 220px; }
+            .box-all { width: 240px; height: 140px; }
+            .box-warm, .box-cool { width: 110px; height: 110px; }
+            .boxes-grid { width: 240px; }
+            .boxes-grid .split-box { width: 72px; height: 72px; }
+            .palette-bar-large { width: 260px; height: 70px; }
+            .mini-palettes-grid { grid-template-columns: repeat(2, 1fr); }
+            .cities-grid { grid-template-columns: 1fr; }
+            .spectrum-city { flex-wrap: wrap; }
+            .spectrum-city-name { width: 100%; text-align: left; margin-bottom: 4px; }
+            .spectrum-city-palette { width: 100px; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; gap: var(--space-md); }
+        }
+        @media (max-width: 600px) {
+            .hero { padding: var(--space-lg); }
+            .container, .container-narrow { padding: 0 var(--space-md); }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1 class="display hero-title">Chromatic<br>Geography</h1>
+        <p class="hero-subtitle">The colors of the world.</p>
+        <div class="scroll-prompt">scroll</div>
+    </section>
+
+    <section class="intro">
+        <div class="container-narrow intro-text">
+            <p>Using images as data.</p>
+            <p>I built a pipeline to extract dominant colors from urban photography and aggregate them into city-level palettes.</p>
+            <p class="muted">The dataset: <span class="highlight-number">1,800 images</span> across <span class="highlight-number">12 cities</span>.</p>
+        </div>
+        <div class="divider"></div>
+    </section>
+
+    <section class="method-intro">
+        <div class="container-narrow">
+            <p class="method-intro-question">How does this work?</p>
+            <p class="method-intro-answer">Using a single image from Tokyo, let me walk through exactly what the algorithm does.</p>
+        </div>
+    </section>
+
+    <section class="algorithm" id="algorithm">
+        <div class="scrolly">
+            <div class="scrolly-graphic">
+                <div class="viz-wrapper">
+                    <div class="viz-state" id="state-image">
+                        <img src="./tokyo-temple.jpg" alt="Tokyo Sensoji Temple" class="viz-image">
+                        <p class="viz-caption">sensoji_temple_001.jpg</p>
+                    </div>
+                    <div class="viz-state" id="state-pixels">
+                        <div class="pixel-grid" id="pixel-grid"></div>
+                        <p class="viz-caption">360,000 pixels</p>
+                    </div>
+                    <div class="viz-state" id="state-rgb">
+                        <div class="rgb-demo">
+                            <div class="rgb-sample" style="background:#c9463d;"><span class="rgb-values">(201, 70, 61)</span></div>
+                            <div class="rgb-sample" style="background:#1a3a4a;"><span class="rgb-values">(26, 58, 74)</span></div>
+                            <div class="rgb-sample" style="background:#d4a574;"><span class="rgb-values">(212, 165, 116)</span></div>
+                            <div class="rgb-sample" style="background:#8b2d23;"><span class="rgb-values">(139, 45, 35)</span></div>
+                        </div>
+                        <p class="viz-caption">Each pixel = (R, G, B)</p>
+                    </div>
+                    <div class="viz-state" id="state-colorspace">
+                        <div class="colorspace-container">
+                            <div class="colorspace-box" id="colorspace-dots"></div>
+                            <span class="axis-x">Red →</span>
+                            <span class="axis-y">↑ Green</span>
+                        </div>
+                        <p class="viz-caption">Pixels plotted in "color space"</p>
+                    </div>
+                    <div class="viz-state" id="state-box-1">
+                        <div class="boxes-container"><div class="split-box box-all"><span>All 360,000 pixels</span></div></div>
+                        <p class="viz-caption">Step 1: Everything in one box</p>
+                    </div>
+                    <div class="viz-state" id="state-box-2">
+                        <div class="boxes-container boxes-row">
+                            <div class="split-box box-warm"><span>Warm</span></div>
+                            <div class="split-box box-cool"><span>Cool</span></div>
+                        </div>
+                        <p class="viz-caption">Step 2: Cut along biggest range</p>
+                    </div>
+                    <div class="viz-state" id="state-box-6">
+                        <div class="boxes-container boxes-grid">
+                            <div class="split-box" style="background:#c9463d;"></div>
+                            <div class="split-box" style="background:#8b2d23;"></div>
+                            <div class="split-box" style="background:#1a3a4a;"></div>
+                            <div class="split-box" style="background:#2d5a6b;"></div>
+                            <div class="split-box" style="background:#d4a574;"></div>
+                            <div class="split-box" style="background:#e8c9a0;"></div>
+                        </div>
+                        <p class="viz-caption">Step 3: Repeat until we have 6 distinct boxes</p>
+                    </div>
+                    <div class="viz-state" id="state-palette">
+                        <div class="final-palette-display">
+                            <div class="palette-bar-large">
+                                <span style="background:#c9463d;" data-hex="#c9463d"></span>
+                                <span style="background:#8b2d23;" data-hex="#8b2d23"></span>
+                                <span style="background:#1a3a4a;" data-hex="#1a3a4a"></span>
+                                <span style="background:#2d5a6b;" data-hex="#2d5a6b"></span>
+                                <span style="background:#d4a574;" data-hex="#d4a574"></span>
+                                <span style="background:#e8c9a0;" data-hex="#e8c9a0"></span>
+                            </div>
+                            <p class="palette-label">One image's palette</p>
+                        </div>
+                        <p class="viz-caption">6 colors extracted</p>
+                    </div>
+                </div>
+            </div>
+            <div class="scrolly-text">
+                <div class="scroll-step active" data-step="image"><div class="step-content">
+                    <h3 class="step-heading">Start with an image</h3>
+                    <p>This is Sensoji Temple in Tokyo, with red lanterns, wooden beams, and crowds of visitors.</p>
+                </div>
+            </div>
+                <div class="scroll-step" data-step="pixels">
+                    <div class="step-content">
+                        <h3 class="step-heading">Every image is an array of pixels.</h3>
+                        <p>Zoom in far enough, and any photo becomes a grid of tiny colored squares. A 600×600 image has <strong>360,000 pixels</strong>.</p>
+                        <p class="muted">How do we simplify 360,000 colors down to just 6?</p>
+                    </div>
+                </div>
+                <div class="scroll-step" data-step="rgb">
+                    <div class="step-content">
+                        <h3 class="step-heading">Each pixel can be represented by 3 numbers.</h3>
+                        <p>Every color is stored as <strong>(R, G, B)</strong> — how much red, green, and blue light it contains.</p>
+                        <p><span class="data" style="color:#c9463d;">(201, 70, 61)</span> = The red lantern<br><span class="data" style="color:#6ba3b8;">(26, 58, 74)</span> = The shadowy blue</p>
+                    </div>
+                </div>
+                <div class="scroll-step" data-step="colorspace">
+                    <div class="step-content">
+                        <h3 class="step-heading">Plotting pixels in a 3D color space</h3>
+                        <p>Imagine a 3D box where X = red, Y = green, Z = blue. Every pixel becomes a point in this space.</p>
+                        <p><strong>Therefore, similar colors cluster together.</strong></p>
+                    </div>
+                </div>
+                <div class="scroll-step" data-step="box-1"><div class="step-content"><h3 class="step-heading">Start with one big box - all pixels in the 3D color space.</h3>
+                    <p>The algorithm is called <strong>Median Cut</strong>, used by the ColorThief library. It starts by putting all pixels into a single container.</p>
+                </div>
+            </div>
+                <div class="scroll-step" data-step="box-2">
+                    <div class="step-content">
+                        <h3 class="step-heading">Cut the box in half</h3>
+                        <p>Find which color channel (R, G, or B) has the <strong>biggest range</strong>, as in, the axis (R,G, or B) along which there is the largest (minimum-maximum) value. Cut the box in half along that axis at the median.</p>
+                    </div>
+                </div>
+                <div class="scroll-step" data-step="box-6">
+                    <div class="step-content">
+                        <h3 class="step-heading">Continue the process.</h3>
+                        <p>From the resulting two boxes, take the box with the most variation and cut it again, increasing the number of boxes by 1 each time. The algorithm repeats until we have 6 boxes.</p>
+                        <p>The average color of each box becomes one of the six final palette colors.</p>
+                    </div>
+                </div>
+                <div class="scroll-step" data-step="palette">
+                    <div class="step-content">
+                        <h3 class="step-heading">The result: 6 colors</h3>
+                        <p>From 360,000 pixels down to 6 representative colors of a single image.</p>
+                        <p class="muted">Post-processing filters out very dark and gray colors from sidewalks, roads, and concrete to focus on more vibrant essence.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="image-to-city">
+        <div class="city-intro container-narrow">
+            <p class="display" style="font-size:clamp(1.5rem,4vw,2.2rem);text-align:center;margin-bottom:var(--space-lg);">One image gives us 6 colors.<br>How do we aggregate this for a whole city?</p>
+            <p class="muted" style="text-align:center;font-size:1.15rem;">I'll use Tokyo as an example. I extracted colors from <strong style="color:var(--color-text);">150 photographs</strong>, which included temples, streets, neon signs, markets, and trains.</p>
+        </div>
+        <div class="palette-merge">
+            <p class="merge-label">150 images from Tokyo × 6 colors extracted from each = 900 total colors. Here are some example palettes from other images:</p>
+            <div class="mini-palettes-grid">
+                <div class="mini-palette">
+                    <span style="background:#c9463d"></span><span style="background:#8b2d23"></span><span style="background:#1a3a4a"></span><span style="background:#d4a574"></span><span style="background:#2d5a6b"></span><span style="background:#e8c9a0"></span></div>
+                <div class="mini-palette"><span style="background:#b24824"></span><span style="background:#472115"></span><span style="background:#bd9b60"></span><span style="background:#5d3123"></span><span style="background:#bc5340"></span><span style="background:#c79568"></span></div>
+                <div class="mini-palette"><span style="background:#e83a5e"></span><span style="background:#2d1f3d"></span><span style="background:#f4c842"></span><span style="background:#1a1a2e"></span><span style="background:#ff6b9d"></span><span style="background:#ffd93d"></span></div>
+                <div class="mini-palette"><span style="background:#dc143c"></span><span style="background:#191970"></span><span style="background:#ffa07a"></span><span style="background:#4a4a4a"></span><span style="background:#8b4513"></span><span style="background:#cd853f"></span></div>
+                <div class="mini-palette"><span style="background:#bc5340"></span><span style="background:#c79568"></span><span style="background:#2a4150"></span><span style="background:#86b8cc"></span><span style="background:#a0522d"></span><span style="background:#deb887"></span></div>
+                <div class="mini-palette"><span style="background:#ff1493"></span><span style="background:#00ced1"></span><span style="background:#2e2e2e"></span><span style="background:#ff8c00"></span><span style="background:#d2691e"></span><span style="background:#2f4f4f"></span></div>
+                <div class="mini-palette"><span style="background:#b22222"></span><span style="background:#f5deb3"></span><span style="background:#708090"></span><span style="background:#cd5c5c"></span><span style="background:#5f9ea0"></span><span style="background:#8b0000"></span></div>
+                <div class="mini-palette"><span style="background:#00d4aa"></span><span style="background:#1f1f3a"></span><span style="background:#ffd93d"></span><span style="background:#191970"></span><span style="background:#ffa07a"></span><span style="background:#2a4150"></span></div>
+                <div class="mini-palette"><span style="background:#a0522d"></span><span style="background:#deb887"></span><span style="background:#5f9ea0"></span><span style="background:#c9463d"></span><span style="background:#8b2d23"></span><span style="background:#1a3a4a"></span></div>
+                <div class="mini-palette"><span style="background:#b24824"></span><span style="background:#bd9b60"></span><span style="background:#bc5340"></span><span style="background:#c79568"></span><span style="background:#472115"></span><span style="background:#5d3123"></span></div>
+            </div>
+            <div class="merge-arrow"><span>↓</span><p>I then clustered similar colors, and found the most frequently appearing, or dominant colors:</p></div>
+            <div class="city-palette-result">
+                <div class="city-palette-bar">
+                    <span style="background:#b24824" data-hex="#b24824"></span>
+                    <span style="background:#472115" data-hex="#472115"></span>
+                    <span style="background:#5d3123" data-hex="#5d3123"></span>
+                    <span style="background:#bd9b60" data-hex="#bd9b60"></span>
+                    <span style="background:#bc5340" data-hex="#bc5340"></span>
+                    <span style="background:#c79568" data-hex="#c79568"></span>
+                </div>
+                <h3 class="city-palette-name">Tokyo</h3>
+                <p class="city-palette-description muted">Vermillion reds, burnt umber, warm ochre representing temples, lanterns, wooden architecture</p>
+            </div>
+        </div>
+        <div class="container-narrow" style="margin-top:var(--space-xl);">
+            <div class="process-explanation">
+                <h4>The Aggregation Process</h4>
+                <ol>
+                    <li>Extract 6 colors from each of 150 images</li>
+                    <li>That gives us 900 colors total</li>
+                    <li>Cluster similar colors and count frequency</li>
+                    <li>The 6 most common become the city's palette</li>
+                </ol>
+                <p class="muted" style="margin-top:var(--space-md);">This way, outlier photos don't skew results so that the palette reflects what's consistently present.</p>
+            </div>
+        </div>
+        <div class="divider"></div>
+    </section>
+
+    <section class="all-cities" id="results">
+        <div class="results-header container-narrow">
+            <h2 class="display" style="font-size:clamp(2rem,5vw,3.5rem);text-align:center;margin-bottom:var(--space-md);">12 Cities</h2>
+            <p class="muted" style="text-align:center;font-size:1.15rem;margin-bottom:var(--space-xl);"> After analyzing 1,800 photographs (150 per city), here's what the algorithm found.</p>
+        </div>
+        <div class="cities-grid container">
+            <div class="city-card"><div class="city-card-palette"><span style="background:#6d1b04" data-hex="#6d1b04"></span><span style="background:#f7c36e" data-hex="#f7c36e"></span><span style="background:#843c09" data-hex="#843c09"></span><span style="background:#a7540c" data-hex="#a7540c"></span><span style="background:#da8d35" data-hex="#da8d35"></span><span style="background:#ccb464" data-hex="#ccb464"></span></div><div class="city-card-info"><h3 class="city-card-name">Bangkok</h3><p class="city-card-country">Thailand</p><p class="city-card-vibe">Temples, busy streets, and night market glow</p></div></div>
+            <div class="city-card"><div class="city-card-palette"><span style="background:#cc8b53" data-hex="#cc8b53"></span><span style="background:#b4d4e4" data-hex="#b4d4e4"></span><span style="background:#3c849c" data-hex="#3c849c"></span><span style="background:#5f94b2" data-hex="#5f94b2"></span><span style="background:#f3d28d" data-hex="#f3d28d"></span><span style="background:#995314" data-hex="#995314"></span></div><div class="city-card-info"><h3 class="city-card-name">Istanbul</h3><p class="city-card-country">Turkey</p><p class="city-card-vibe">Bosphorus blues meet bazaar gold</p></div></div>
+            <div class="city-card"><div class="city-card-palette"><span style="background:#0f989e" data-hex="#0f989e"></span><span style="background:#eca487" data-hex="#eca487"></span><span style="background:#df7954" data-hex="#df7954"></span><span style="background:#87371a" data-hex="#87371a"></span><span style="background:#5f2613" data-hex="#5f2613"></span><span style="background:#1f8e80" data-hex="#1f8e80"></span></div><div class="city-card-info"><h3 class="city-card-name">Marrakech</h3><p class="city-card-country">Morocco</p><p class="city-card-vibe">Teal tiles, terracotta architecture, and spice market coral</p></div></div>
+            <div class="city-card"><div class="city-card-palette"><span style="background:#b24824" data-hex="#b24824"></span><span style="background:#472115" data-hex="#472115"></span><span style="background:#5d3123" data-hex="#5d3123"></span><span style="background:#bd9b60" data-hex="#bd9b60"></span><span style="background:#bc5340" data-hex="#bc5340"></span><span style="background:#c79568" data-hex="#c79568"></span></div><div class="city-card-info"><h3 class="city-card-name">Tokyo</h3><p class="city-card-country">Japan</p><p class="city-card-vibe">Vermillion shrines, night lights, and wooden warmth</p></div></div>
+            <div class="city-card"><div class="city-card-palette"><span style="background:#f2d19a" data-hex="#f2d19a"></span><span style="background:#9e4424" data-hex="#9e4424"></span><span style="background:#b79164" data-hex="#b79164"></span><span style="background:#7b6141" data-hex="#7b6141"></span><span style="background:#4f402d" data-hex="#4f402d"></span><span style="background:#ddcec9" data-hex="#ddcec9"></span></div><div class="city-card-info"><h3 class="city-card-name">Mexico City</h3><p class="city-card-country">Mexico</p><p class="city-card-vibe">Cream, clay, and terracotta</p></div></div>
+            <div class="city-card"><div class="city-card-palette"><span style="background:#14a694" data-hex="#14a694"></span><span style="background:#e4bb77" data-hex="#e4bb77"></span><span style="background:#2b809f" data-hex="#2b809f"></span><span style="background:#e5d9b6" data-hex="#e5d9b6"></span><span style="background:#756031" data-hex="#756031"></span><span style="background:#5fb0b1" data-hex="#5fb0b1"></span></div><div class="city-card-info"><h3 class="city-card-name">Havana</h3><p class="city-card-country">Cuba</p><p class="city-card-vibe">Coastal caribbean teal and gold</p></div></div>
+            <div class="city-card"><div class="city-card-palette"><span style="background:#ac9854" data-hex="#ac9854"></span><span style="background:#e4d5cb" data-hex="#e4d5cb"></span><span style="background:#8e854c" data-hex="#8e854c"></span><span style="background:#ac4c2f" data-hex="#ac4c2f"></span><span style="background:#193e50" data-hex="#193e50"></span><span style="background:#b5683d" data-hex="#b5683d"></span></div><div class="city-card-info"><h3 class="city-card-name">Melbourne</h3><p class="city-card-country">Australia</p><p class="city-card-vibe">Olive greens and laneway street art</p></div></div>
+            <div class="city-card"><div class="city-card-palette"><span style="background:#c7cfe4" data-hex="#c7cfe4"></span><span style="background:#cddce4" data-hex="#cddce4"></span><span style="background:#247084" data-hex="#247084"></span><span style="background:#ccae74" data-hex="#ccae74"></span><span style="background:#3c8494" data-hex="#3c8494"></span><span style="background:#956e49" data-hex="#956e49"></span></div><div class="city-card-info"><h3 class="city-card-name">Copenhagen</h3><p class="city-card-country">Denmark</p><p class="city-card-vibe">Nordic mist, soft lavender, hygge warmth</p></div></div>
+            <div class="city-card"><div class="city-card-palette"><span style="background:#3c6c8c" data-hex="#3c6c8c"></span><span style="background:#34c4fc" data-hex="#34c4fc"></span><span style="background:#6fccf5" data-hex="#6fccf5"></span><span style="background:#52b8f2" data-hex="#52b8f2"></span><span style="background:#e1c5bb" data-hex="#e1c5bb"></span><span style="background:#cd8e5e" data-hex="#cd8e5e"></span></div><div class="city-card-info"><h3 class="city-card-name">Jaipur</h3><p class="city-card-country">India</p><p class="city-card-vibe">Clear skies and palace terracotta from the "pink city"</p></div></div>
+            <div class="city-card"><div class="city-card-palette"><span style="background:#047fd1" data-hex="#047fd1"></span><span style="background:#044db5" data-hex="#044db5"></span><span style="background:#042884" data-hex="#042884"></span><span style="background:#f5f5f5" data-hex="#f5f5f5"></span><span style="background:#104b8e" data-hex="#104b8e"></span><span style="background:#1d70ae" data-hex="#1d70ae"></span></div><div class="city-card-info"><h3 class="city-card-name">Santorini</h3><p class="city-card-country">Greece</p><p class="city-card-vibe">Pure Aegean blue, iconic whitewash</p></div></div>
+            <div class="city-card"><div class="city-card-palette"><span style="background:#2d5a3d" data-hex="#2d5a3d"></span><span style="background:#4a9c6d" data-hex="#4a9c6d"></span><span style="background:#6bc4e8" data-hex="#6bc4e8"></span><span style="background:#3d7a9c" data-hex="#3d7a9c"></span><span style="background:#8fbc8f" data-hex="#8fbc8f"></span><span style="background:#c0dce8" data-hex="#c0dce8"></span></div><div class="city-card-info"><h3 class="city-card-name">Singapore</h3><p class="city-card-country">Singapore</p><p class="city-card-vibe">Tropical green, glass towers, Marina Bay blue</p></div></div>
+            <div class="city-card"><div class="city-card-palette"><span style="background:#4a8c5e" data-hex="#4a8c5e"></span><span style="background:#e8c547" data-hex="#e8c547"></span><span style="background:#3d7a8c" data-hex="#3d7a8c"></span><span style="background:#8b5a3c" data-hex="#8b5a3c"></span><span style="background:#d4a574" data-hex="#d4a574"></span><span style="background:#c4564a" data-hex="#c4564a"></span></div><div class="city-card-info"><h3 class="city-card-name">Rio de Janeiro</h3><p class="city-card-country">Brazil</p><p class="city-card-vibe">Jungle greens and carnival colors</p></div></div>
+        </div>
+    </section>
+
+    <section class="insights" id="insights">
+        <div class="container">
+            <div class="insights-header">
+                <h2 class="display">Insights</h2>
+                <p>Patterns from comparing the 12 cities side by side.</p>
+            </div>
+            
+            <div class="temp-explanation">
+                <h4>Visualizing Color Temperature</h4>
+                <p>"Warm" and "cool" are perceptual qualities that I attempted to approximate mathematically. Since warm colors (red, orange, yellow) have high R values and cool colors (blue, cyan) have high B values:</p>
+                <div class="formula">
+                    <code>temperature = (R - B + 255) / 510 × 100</code><br>
+                    <span class="comment">// 0 = pure blue, 50 = neutral, 100 = pure red</span>
+                </div>
+                <p>For each palette, I averaged the temperature of all 6 colors, with Green as roughly neutral benchmark (~50).</p>
+            </div>
+            
+            <div class="spectrum-section">
+                <h3 class="spectrum-title">The Warm ↔ Cool Spectrum</h3>
+                <p class="muted" style="text-align:center;margin-bottom:var(--space-xl);font-size:1.1rem;">Cities ranked by average color temperature</p>
+                <div class="spectrum-container">
+                    <div class="spectrum-bar"></div>
+                    <div class="spectrum-labels"><span>Cool</span><span>Warm</span></div>
+                    <div class="spectrum-cities" id="spectrum-cities"></div>
+                </div>
+            </div>
+            
+            <div class="comparison-section">
+                <h3 class="comparison-title">More Side-by-side Comparisons</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Temperature opposites: Bangkok & Santorini</h4>
+                        <p>The warmest and coolest cities in the dataset.</p>
+                        <div class="comparison-palettes">
+                            <div class="comparison-palette-item"><div class="mini-bar"><span style="background:#6d1b04"></span><span style="background:#f7c36e"></span><span style="background:#843c09"></span><span style="background:#a7540c"></span><span style="background:#da8d35"></span><span style="background:#ccb464"></span></div><span class="city-label">Bangkok</span></div>
+                            <span class="comparison-vs">vs</span>
+                            <div class="comparison-palette-item"><div class="mini-bar"><span style="background:#047fd1"></span><span style="background:#044db5"></span><span style="background:#042884"></span><span style="background:#f5f5f5"></span><span style="background:#104b8e"></span><span style="background:#1d70ae"></span></div><span class="city-label">Santorini</span></div>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Same Temperature, Different Palettes</h4>
+                        <p>Melbourne and Rio show what two palettes with the same color temperature (exactly 62°) can look like.</p>
+                        <div class="comparison-palettes">
+                            <div class="comparison-palette-item"><div class="mini-bar"><span style="background:#ac9854"></span><span style="background:#e4d5cb"></span><span style="background:#8e854c"></span><span style="background:#ac4c2f"></span><span style="background:#193e50"></span><span style="background:#b5683d"></span></div><span class="city-label">Melbourne</span></div>
+                            <span class="comparison-vs">=</span>
+                            <div class="comparison-palette-item"><div class="mini-bar"><span style="background:#4a8c5e"></span><span style="background:#e8c547"></span><span style="background:#3d7a8c"></span><span style="background:#8b5a3c"></span><span style="background:#d4a574"></span><span style="background:#c4564a"></span></div><span class="city-label">Rio</span></div>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Almost Monochromatic: Santorini</h4>
+                        <p>The only city with a nearly single-hue palette - 5/6 colors are variations of blue. </p>
+                        <div class="comparison-palettes">
+                            <div class="comparison-palette-item" style="flex:1;"><div class="mini-bar"><span style="background:#047fd1"></span><span style="background:#044db5"></span><span style="background:#042884"></span><span style="background:#f5f5f5"></span><span style="background:#104b8e"></span><span style="background:#1d70ae"></span></div><span class="city-label">5 blues + 1 white</span></div>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Unexpected similarities: Tokyo & Mexico City</h4>
+                        <p>The algorithm's most similar pair despite different climates and locations. Both built from warm earth tones, vermillion, and terracotta.</p>
+                        <div class="comparison-palettes">
+                            <div class="comparison-palette-item"><div class="mini-bar"><span style="background:#b24824"></span><span style="background:#472115"></span><span style="background:#5d3123"></span><span style="background:#bd9b60"></span><span style="background:#bc5340"></span><span style="background:#c79568"></span></div><span class="city-label">Tokyo</span></div>
+                            <span class="comparison-vs">=</span>
+                            <div class="comparison-palette-item"><div class="mini-bar"><span style="background:#f2d19a"></span><span style="background:#9e4424"></span><span style="background:#b79164"></span><span style="background:#7b6141"></span><span style="background:#4f402d"></span><span style="background:#ddcec9"></span></div><span class="city-label">Mexico City</span></div>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Saturation Spectrum</h4>
+                        <p>Bangkok's palette averages 79% saturation, while Copenhagen sits at the opposite end, at 41%. Tropics versus the Nordic climate.</p>
+                        <div class="comparison-palettes">
+                            <div class="comparison-palette-item"><div class="mini-bar"><span style="background:#6d1b04"></span><span style="background:#f7c36e"></span><span style="background:#843c09"></span><span style="background:#a7540c"></span><span style="background:#da8d35"></span><span style="background:#ccb464"></span></div><span class="city-label">Bangkok: 79% sat</span></div>
+                            <span class="comparison-vs">vs</span>
+                            <div class="comparison-palette-item"><div class="mini-bar"><span style="background:#c7cfe4"></span><span style="background:#cddce4"></span><span style="background:#247084"></span><span style="background:#ccae74"></span><span style="background:#3c8494"></span><span style="background:#956e49"></span></div><span class="city-label">Copenhagen: 41% sat</span></div>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>The Green City</h4>
+                        <p>Singapore is the only city where green is the dominant hue. Garden City lives up to its name, with hints of the blue glass buildings in the skyline.</p>
+                        <div class="comparison-palettes">
+                            <div class="comparison-palette-item" style="flex:1;"><div class="mini-bar"><span style="background:#2d5a3d"></span><span style="background:#4a9c6d"></span><span style="background:#6bc4e8"></span><span style="background:#3d7a9c"></span><span style="background:#8fbc8f"></span><span style="background:#c0dce8"></span></div><span class="city-label">Singapore</span></div>
+                        </div>
+                    </div>
+                </div>
+            
+            <div class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-item"><div class="stat-number">1,800</div><div class="stat-label">photographs analyzed</div></div>
+                    <div class="stat-item"><div class="stat-number">10,800</div><div class="stat-label">colors extracted</div></div>
+                    <div class="stat-item"><div class="stat-number">72</div><div class="stat-label">final palette colors</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer container">
+        <p>Data: Unsplash API • Algorithm: ColorThief (Median Cut) • Visualization: Hand-coded HTML/CSS/JS</p>
+        <p style="margin-top:var(--space-md);color:#555;">Chromatic Geography, 2024</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tokyoColors = ['#c9463d','#8b2d23','#a33529','#d4564a','#1a3a4a','#2d5a6b','#1f4555','#3a6b7c','#d4a574','#e8c9a0','#c49464','#b8845a','#0d1a20','#151515','#1a1a2e','#2a2a3a'];
+            
+            // Generate pixel grid
+            const pixelGrid = document.getElementById('pixel-grid');
+            if(pixelGrid) for(let i=0;i<256;i++){const p=document.createElement('div');p.className='pixel';p.style.background=tokyoColors[Math.floor(Math.random()*tokyoColors.length)];pixelGrid.appendChild(p);}
+            
+            // Generate colorspace dots
+            const colorspaceBox = document.getElementById('colorspace-dots');
+            function hexToRgb(h){h=h.replace('#','');return{r:parseInt(h.substring(0,2),16),g:parseInt(h.substring(2,4),16),b:parseInt(h.substring(4,6),16)};}
+            if(colorspaceBox) for(let i=0;i<80;i++){const d=document.createElement('div');d.className='dot';const c=tokyoColors[Math.floor(Math.random()*tokyoColors.length)];d.style.background=c;const rgb=hexToRgb(c);d.style.left=(rgb.r/255)*80+10+(Math.random()*10-5)+'%';d.style.top=90-(rgb.g/255)*80+(Math.random()*10-5)+'%';colorspaceBox.appendChild(d);}
+            
+            // Scroll tracking
+            const steps=document.querySelectorAll('.scroll-step'),vizStates=document.querySelectorAll('.viz-state');
+            const stepToViz={'image':'state-image','pixels':'state-pixels','rgb':'state-rgb','colorspace':'state-colorspace','box-1':'state-box-1','box-2':'state-box-2','box-6':'state-box-6','palette':'state-palette'};
+            function showViz(s){vizStates.forEach(v=>v.classList.remove('active'));const t=stepToViz[s];if(t){const el=document.getElementById(t);if(el)el.classList.add('active');}}
+            const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){steps.forEach(s=>s.classList.remove('active'));en.target.classList.add('active');showViz(en.target.dataset.step);}});},{threshold:0.5,rootMargin:'-20% 0px -20% 0px'});
+            steps.forEach(s=>obs.observe(s));showViz('image');if(steps.length>0)steps[0].classList.add('active');
+            
+            // === TEMPERATURE CALCULATION ===
+            // Full 6-color palettes for each city (now 12 cities)
+            const cityPalettes = {
+                'Bangkok': ['#6d1b04','#f7c36e','#843c09','#a7540c','#da8d35','#ccb464'],
+                'Istanbul': ['#cc8b53','#b4d4e4','#3c849c','#5f94b2','#f3d28d','#995314'],
+                'Marrakech': ['#0f989e','#eca487','#df7954','#87371a','#5f2613','#1f8e80'],
+                'Tokyo': ['#b24824','#472115','#5d3123','#bd9b60','#bc5340','#c79568'],
+                'Mexico City': ['#f2d19a','#9e4424','#b79164','#7b6141','#4f402d','#ddcec9'],
+                'Havana': ['#14a694','#e4bb77','#2b809f','#e5d9b6','#756031','#5fb0b1'],
+                'Melbourne': ['#ac9854','#e4d5cb','#8e854c','#ac4c2f','#193e50','#b5683d'],
+                'Copenhagen': ['#c7cfe4','#cddce4','#247084','#ccae74','#3c8494','#956e49'],
+                'Jaipur': ['#3c6c8c','#34c4fc','#6fccf5','#52b8f2','#e1c5bb','#cd8e5e'],
+                'Santorini': ['#047fd1','#044db5','#042884','#f5f5f5','#104b8e','#1d70ae'],
+                'Singapore': ['#2d5a3d','#4a9c6d','#6bc4e8','#3d7a9c','#8fbc8f','#c0dce8'],
+                'Rio de Janeiro': ['#4a8c5e','#e8c547','#3d7a8c','#8b5a3c','#d4a574','#c4564a']
+            };
+            
+            // Temperature formula: (R - B + 255) / 510 * 100
+            function getColorTemp(hex) {
+                const {r, g, b} = hexToRgb(hex);
+                return (r - b + 255) / 510 * 100;
+            }
+            
+            function getPaletteTemp(colors) {
+                const total = colors.reduce((sum, hex) => sum + getColorTemp(hex), 0);
+                return Math.round(total / colors.length);
+            }
+            
+            // Build and sort city data
+            const cityData = Object.entries(cityPalettes).map(([name, colors]) => ({
+                name,
+                colors,
+                temp: getPaletteTemp(colors)
+            })).sort((a, b) => a.temp - b.temp);
+            
+            // Render spectrum
+            const spectrumContainer = document.getElementById('spectrum-cities');
+            if (spectrumContainer) {
+                const temps = cityData.map(c => c.temp);
+                const minTemp = Math.min(...temps);
+                const maxTemp = Math.max(...temps);
+                
+                cityData.forEach(c => {
+                    const scaledWidth = 15 + ((c.temp - minTemp) / (maxTemp - minTemp)) * 80;
+                    
+                    // Color based on temperature - using a nice olive/sage for neutral
+                    let barColor;
+                    if (c.temp < 42) {
+                        barColor = '#0096c7'; // Cool blue
+                    } else if (c.temp < 55) {
+                        barColor = '#7a9a6d'; // Neutral sage green
+                    } else {
+                        barColor = '#c4784a'; // Warm terracotta
+                    }
+                    
+                    const row = document.createElement('div');
+                    row.className = 'spectrum-city';
+                    row.innerHTML = `
+                        <span class="spectrum-city-name">${c.name}</span>
+                        <div class="spectrum-city-bar-container">
+                            <div class="spectrum-city-bar" style="width:${scaledWidth}%;background:linear-gradient(to right,${barColor}99,${barColor});">
+                                <span class="temp-value">${c.temp}°</span>
+                            </div>
+                        </div>
+                        <div class="spectrum-city-palette">
+                            ${c.colors.map(col => `<span style="background:${col}"></span>`).join('')}
+                        </div>
+                    `;
+                    spectrumContainer.appendChild(row);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
