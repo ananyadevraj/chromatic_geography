@@ -2,7 +2,7 @@
 
 A visual essay exploring the color palettes of 12 cities around the world, told through scrollytelling.
 
-**[Explore the essay →](https://ananyadevraj.github.io/chromatic-geography/)**
+**[Explore the essay →](https://ananyadevraj.github.io/chromatic_geography/)**
 
 ## About
 
